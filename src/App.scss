@@ -1,38 +1,180 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+.sign-up {
+  font-family: Nunito;
+  background-image: url("assets/blob.svg");
+  background-repeat: no-repeat;
+  background-position-y: 35px;
+  background-position-x: 70px;
+  background-size: 33%;
+  display: flex;
+  height: 100vh;
+}
+
+.bg-main {
+  background-color: #ffe061;
+}
+
+.signup-form {
+  display: 48vw;
+}
+
+.left-information {
+  width: 48vw;
+}
+
+.signup-form-motto {
+  font-weight: 600;
+  font-size: 60px;
+  width: 397px;
+  margin-left: 120px;
+  margin-top: 185px;
+}
+
+.signup-form-secondary-motto {
+  width: 355px;
+  height: 44px;
+  margin-left: 120px;
+  margin-top: 70px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 44px;
+}
+
+.text-already-have-account {
+  width: 347px;
+  height: 33px;
+  margin-left: 120px;
+  margin-top: 60px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.signup-form {
+  display: 48vw;
+  width: 588px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10vh;
+}
+.signup-form * {
+  flex-grow: 0;
+}
+.signup-form button {
+  width: 588px;
+  height: 64px;
+  border-radius: 7px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 33px;
+  cursor: pointer;
+}
+.signup-form button:hover {
+  box-shadow: 5px #ffe061;
+}
+.form-input {
+  height: 56px;
+  border-radius: 4px;
+  font-size: 22px;
+  padding-left: 13px;
+}
+.signup-form label {
+  background-color: #ffffff;
+  position: relative;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+  width: min-content;
+  padding-left: 7px;
+  padding-right: 7px;
+  color: #0a3749;
+  left: 20px;
+  bottom: -20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.half-width {
+  width: 269px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.two-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+}
+.two-row label {
+  position: relative;
+  top: 12px;
+}
+.sign-up-with-google {
+  background-color: #ffffff;
+  border: 2px solid #868091;
+}
+.sign-up-with-google-text {
+  line-height: 52px;
+}
+.google-logo {
+  width: 52px;
+  height: 52px;
+  float: left;
+  margin-left: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+.div-or {
+  width: 588px;
+  height: 32px;
+  border-bottom: solid 1px #000000;
+  margin-bottom: 25px;
+}
+.text-or {
+  position: relative;
+  width: 25px;
+  height: 30px;
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+  background-color: #ffffff;
+  color: #000000;
+  bottom: -15px;
+  left: 272px;
+}
+.form-checkbox {
+  margin-top: 20px;
+  font-size: 22px;
+  margin-bottom: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-checkbox * {
+  display: inline;
+}
+.form-agree-checkbox {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 0.5px solid #000000;
+  border-radius: 3px;
+  margin-right: 15px;
+}
+.sign-up-button {
+  border: none;
+}
+
+.forgot-password {
+  float: right;
 }
