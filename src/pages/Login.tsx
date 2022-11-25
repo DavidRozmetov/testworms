@@ -1,5 +1,6 @@
 import "../scss/auth.scss";
 import GoogleLogo from "../assets/google-logo.svg";
+import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 export const Login = () => {
   return (
     <div className="log-in-page">
@@ -16,12 +17,9 @@ export const Login = () => {
           </div>
         </div>
         <div className="signup-form">
-          <button className="btn full-width sign-up-with-google">
-            <img src={GoogleLogo} alt="google logo" className="google-logo" />
-            <text className="sign-up-with-google-text">Log In with Google</text>
-          </button>
+          <BtnSignInWithGoogle />
           <div className="div-or">
-            <text className="text-or">or</text>
+            <p className="text-or">or</p>
           </div>
 
           <label htmlFor="email">Email</label>

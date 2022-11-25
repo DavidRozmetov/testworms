@@ -1,4 +1,4 @@
-import GoogleLogo from "../assets/google-logo.svg";
+import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 export const SignUp = () => {
   return (
     <div className="sign-up-page">
@@ -17,14 +17,9 @@ export const SignUp = () => {
           </div>
         </div>
         <div className="signup-form">
-          <button className="btn full-width sign-up-with-google">
-            <img src={GoogleLogo} alt="google logo" className="google-logo" />
-            <text className="sign-up-with-google-text">
-              Sign up with Google
-            </text>
-          </button>
+          <BtnSignInWithGoogle />
           <div className="div-or">
-            <text className="text-or">or</text>
+            <p className="text-or">or</p>
           </div>
           <div className="two-row full-width">
             <div className="first-name-div">

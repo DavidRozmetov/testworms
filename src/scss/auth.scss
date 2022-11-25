@@ -98,7 +98,7 @@
         margin-left: 40px;
       }
       .sign-up-with-google-text {
-        line-height: 52px;
+        line-height: 0px;
       }
     }
     .div-or {
@@ -106,9 +106,11 @@
       height: 32px;
       border-bottom: solid 1px $black;
       margin-bottom: 25px;
+      margin-top: 30px;
+
       .text-or {
         position: relative;
-        width: 25px;
+        width: 42px;
         height: 30px;
         text-align: center;
         font-family: $secondary-font-family;
@@ -118,7 +120,7 @@
         line-height: 30px;
         background-color: $white;
         color: $black;
-        bottom: -15px;
+        bottom: 10px;
         left: 272px;
       }
     }
