@@ -7,12 +7,14 @@ import { About } from "./pages/About";
 import { ErrorPage } from "./pages/ErrorPage";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
+import { auth, logout } from "./firebase/firebase";
 
 function App() {
   return (
     <Router>
       <nav>
         <Link to="/">Home</Link>
+
         <Link to="/about">About</Link>
 
         <Link to="/signup"> Sign up</Link>

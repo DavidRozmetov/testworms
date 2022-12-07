@@ -1,3 +1,5 @@
+import "../scss/auth.scss";
+import "../scss/auth-mobile.scss";
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 export const SignUp = () => {
   return (
@@ -19,10 +21,11 @@ export const SignUp = () => {
         <div className="signup-form">
           <BtnSignInWithGoogle />
           <div className="div-or">
+            <hr />
             <p className="text-or">or</p>
           </div>
-          <div className="two-row full-width">
-            <div className="first-name-div">
+          <div className="two-row">
+            <div className="first-name-div half-width-div">
               <label htmlFor="first-name" className="first-name-label">
                 First Name
               </label>
@@ -33,7 +36,7 @@ export const SignUp = () => {
                 className="input form-input half-width"
               />
             </div>
-            <div className="last-name-div">
+            <div className="last-name-div half-width-div">
               <label htmlFor="last-name" className="last-name-label">
                 Last Name
               </label>
@@ -44,18 +47,22 @@ export const SignUp = () => {
               />
             </div>
           </div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="form-email"
-            className="input form-input full-width"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="form-password"
-            className="input form-input full-width"
-          />
+          <div className="full-width-div">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="form-email"
+              className="input form-input full-width"
+            />
+          </div>
+          <div className="full-width-div">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="form-password"
+              className="input form-input full-width"
+            />
+          </div>
           <div className="form-checkbox">
             <input
               type="checkbox"

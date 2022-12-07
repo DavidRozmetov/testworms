@@ -1,3 +1,4 @@
+import "../scss/auth-mobile.scss";
 import "../scss/auth.scss";
 import GoogleLogo from "../assets/google-logo.svg";
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
@@ -19,21 +20,26 @@ export const Login = () => {
         <div className="signup-form">
           <BtnSignInWithGoogle />
           <div className="div-or">
+            <hr />
             <p className="text-or">or</p>
           </div>
 
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="form-email"
-            className="input form-input full-width"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="form-password"
-            className="input form-input full-width"
-          />
+          <div className="full-width-div">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="form-email"
+              className="input form-input full-width"
+            />
+          </div>
+          <div className="full-width-div">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="form-password"
+              className="input form-input full-width"
+            />
+          </div>
           <div className="form-checkbox">
             <input
               type="checkbox"
@@ -45,9 +51,7 @@ export const Login = () => {
               Forgot password?
             </a>
           </div>
-          <button className="btn full-width bg-main sign-up-button">
-            Log In
-          </button>
+          <button className="btn bg-main sign-up-button">Log In</button>
         </div>
       </div>
     </div>
