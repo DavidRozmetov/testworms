@@ -16,5 +16,12 @@ export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 
 export const logout = () => {
-  auth.signOut();
+  auth
+    .signOut()
+    .then(() => {
+      alert("Signed out Successfully");
+    })
+    .catch((e) => {
+      alert(e.message);
+    });
 };

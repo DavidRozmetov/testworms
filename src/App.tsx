@@ -7,7 +7,7 @@ import { About } from "./pages/About";
 import { ErrorPage } from "./pages/ErrorPage";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
-import { auth, logout } from "./firebase/firebase";
+import { BtnLogout } from "./components/BtnLogout";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Link to="/about">About</Link>
 
         <Link to="/signup"> Sign up</Link>
+        <BtnLogout />
       </nav>
       <Routes>
         <Route path="/" element={<Home />}></Route>

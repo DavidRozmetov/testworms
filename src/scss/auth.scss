@@ -46,6 +46,7 @@
         height: 90vh;
         margin-top: 5vh;
         display: grid;
+        grid-template-rows: 2fr 1fr 2fr 2fr 2fr 2fr 2fr;
         grid-gap: 10px;
 
         .div-or {
@@ -70,6 +71,7 @@
           border-radius: 4px;
           font-size: 22px;
           padding-left: 13px;
+          border: none;
         }
         .full-width-div {
           display: block;
@@ -135,7 +137,13 @@
           }
         }
       }
+      .redirect-link-mobile {
+        display: none;
+      }
       .form-checkbox {
+        .redirect-link-mobile {
+          display: none;
+        }
         margin-top: 20px;
         font-size: 1.2em;
         margin-bottom: 30px;

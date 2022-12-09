@@ -70,6 +70,12 @@ export const SignUp = () => {
               className="form-agree-checkbox"
             />
             <p>I agree to the Terms of Service and Privacy Notice</p>
+            <br />
+            <div className="redirect-link-mobile">
+              <p className="text-already-have-account">
+                Already a member? <a href="/login"> Login here</a> here!
+              </p>
+            </div>
           </div>
           <button className="btn full-width bg-main sign-up-button">
             Sign me up !
