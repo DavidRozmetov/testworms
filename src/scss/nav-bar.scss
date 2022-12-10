@@ -1,0 +1,126 @@
+@import "../scss/theme.scss";
+
+.nav-bar {
+  margin: 0;
+
+  background-color: $white;
+  box-shadow: inset -1px 0px 0px #f1f1f1;
+  height: 100vh;
+  width: 15vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 500;
+  overflow-x: hidden;
+  a {
+    color: $secondary;
+    text-decoration: none;
+  }
+
+  .logo-main {
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+
+    height: 60vh;
+
+    .nav-link {
+      flex: none;
+      order: 1;
+      flex-grow: 1;
+      width: 85%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 12px 20px 12px 24px;
+      gap: 12px;
+
+      height: 48px;
+
+      background: #ffffff;
+
+      flex: none;
+      order: 6;
+      flex-grow: 0;
+    }
+    .primary-nav-link {
+      background: #f7f7fb;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+      border-right: solid $blue 5px;
+      color: $blue;
+    }
+  }
+  .sticky-footer {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .btn-profile {
+      height: 92px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      padding: 28px 24px;
+      gap: 10px;
+      box-shadow: inset 0px 1px 0px #f1f1f1;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 15px;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+
+      .profile-left {
+        .profile-img {
+          background-color: darkblue;
+          width: 42px;
+          height: 42px;
+          border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          overflow: hidden;
+
+          .image {
+            color: $white;
+            font-weight: bold;
+            font-size: 32px;
+          }
+        }
+      }
+      .profile-text {
+        .profile-name {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 100%;
+
+          color: $secondary;
+        }
+        .profile-plan {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 150%;
+
+          color: #4f5b67;
+        }
+      }
+    }
+  }
+}

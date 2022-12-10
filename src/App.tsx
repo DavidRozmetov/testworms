@@ -1,4 +1,5 @@
 import "./App.scss";
+import "./scss/nav-bar.scss";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -8,17 +9,37 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { BtnLogout } from "./components/BtnLogout";
+import { Logo } from "./components/Logo";
+import { Profile } from "./components/Profile";
 
 function App() {
   return (
     <Router>
-      <nav>
-        <Link to="/">Home</Link>
-
-        <Link to="/about">About</Link>
-
-        <Link to="/signup"> Sign up</Link>
-        <BtnLogout />
+      <nav className="nav-bar">
+        <a href="/">
+          <Logo />
+        </a>
+        <div className="nav-links">
+          <Link to="/" className="nav-link primary-nav-link">
+            Dashboard
+          </Link>
+          <Link to="/about" className="nav-link">
+            About
+          </Link>
+          <Link to="/signup" className="nav-link">
+            Sign up
+          </Link>
+          <Link to="/about" className="nav-link">
+            Documentation
+          </Link>
+        </div>
+        <div className="sticky-footer">
+          <BtnLogout />
+          <Link to="/about" className="nav-link">
+            Help Center
+          </Link>
+          <Profile />
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={<Home />}></Route>

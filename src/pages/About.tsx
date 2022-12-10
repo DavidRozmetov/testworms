@@ -1,3 +1,7 @@
 export const About = () => {
-  return <div>This is the About component</div>;
+  return (
+    <div>
+      <h1>Thanks for checking out. But this page hasn't been developed yet</h1>
+    </div>
+  );
 };
