@@ -1,8 +1,13 @@
 import "../scss/auth-mobile.scss";
 import "../scss/auth.scss";
-import GoogleLogo from "../assets/google-logo.svg";
+
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 export const Login = () => {
+  const navbarDiv = document.getElementById("nav-bar");
+  if (navbarDiv) {
+    navbarDiv.style.display = "none";
+  }
+
   return (
     <div className="log-in-page">
       <div className=" auth-page">
@@ -42,12 +47,6 @@ export const Login = () => {
           </div>
           <div>
             <div className="form-checkbox">
-              <input
-                type="checkbox"
-                id="remember-me-checkbox"
-                className="form-agree-checkbox"
-              />
-              <p>Remember me</p>
               <a href="forgot-password" className="forgot-password">
                 Forgot password?
               </a>

@@ -13,7 +13,7 @@
   padding: 10px;
   font-size: 22px;
   font-weight: 500;
-  overflow-x: hidden;
+
   a {
     color: $secondary;
     text-decoration: none;
@@ -44,17 +44,20 @@
       align-items: center;
       padding: 12px 20px 12px 24px;
       gap: 12px;
-
       height: 48px;
-
       background: #ffffff;
-
       flex: none;
       order: 6;
       flex-grow: 0;
     }
+    .nav-link:hover {
+      background-color: $light-blue;
+      color: $blue;
+      font-size: 23px;
+    }
     .primary-nav-link {
-      background: #f7f7fb;
+      background: $light-blue;
+      font-size: 23px;
       flex: none;
       order: 0;
       flex-grow: 0;
@@ -69,6 +72,33 @@
     flex-direction: column;
     justify-content: center;
 
+    .nav-link {
+      flex: none;
+
+      flex-grow: 1;
+      width: 85%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 12px 20px 12px 24px;
+      gap: 12px;
+      height: 48px;
+      background: #ffffff;
+      flex: none;
+      order: 6;
+      flex-grow: 0;
+    }
+    .nav-link:hover {
+      background-color: $light-blue;
+      color: $blue;
+      font-size: 23px;
+    }
+    .btn-logout {
+      order: 1;
+    }
+    .nav-link-help {
+      order: 0;
+    }
     .btn-profile {
       height: 92px;
       display: flex;
@@ -85,8 +115,7 @@
       padding: 0px;
       gap: 15px;
       flex: none;
-      order: 0;
-      flex-grow: 0;
+      order: 2;
 
       .profile-left {
         .profile-img {

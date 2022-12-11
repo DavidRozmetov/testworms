@@ -1,0 +1,39 @@
+@import "theme.scss";
+.page-not-found {
+  text-align: center;
+  padding: 30px;
+  width: 100%;
+
+  h1 {
+    font-size: 10rem;
+    font-weight: bold;
+    color: $secondary;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: $blue;
+    margin-top: 20px;
+  }
+
+  img {
+    width: 200px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 6rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    img {
+      width: 150px;
+    }
+  }
+}
