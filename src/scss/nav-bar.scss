@@ -1,155 +1,352 @@
 @import "../scss/theme.scss";
-
-.nav-bar {
-  margin: 0;
-
-  background-color: $white;
-  box-shadow: inset -1px 0px 0px #f1f1f1;
-  height: 100vh;
-  width: 15vw;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  font-size: 22px;
-  font-weight: 500;
-
-  a {
-    color: $secondary;
-    text-decoration: none;
+@media only screen and (min-width: 641px) {
+  .nav-bar-mobile,
+  .nav-bar-shadow {
+    display: none;
   }
 
-  .logo-main {
-    height: 20vh;
-    display: flex;
-    justify-content: center;
-  }
+  .nav-bar {
+    margin: 0;
+    background-color: $white;
 
-  .nav-links {
+    box-shadow: inset -1px 0px 0px #f1f1f1;
+    height: 97vh;
+    width: 5vw;
+    left: 0;
+    min-width: 75px;
+    position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    transition-property: width;
+    transition-duration: 0.5s;
+    overflow-x: hidden;
 
-    height: 60vh;
+    a {
+      color: $secondary;
+      text-decoration: none;
+    }
 
-    .nav-link {
-      flex: none;
-      order: 1;
-      flex-grow: 1;
-      width: 85%;
+    .logo-main {
+      height: 10vh;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 12px 20px 12px 24px;
-      gap: 12px;
-      height: 48px;
-      background: #ffffff;
-      flex: none;
-      order: 6;
-      flex-grow: 0;
+      justify-content: center;
     }
-    .nav-link:hover {
-      background-color: $light-blue;
-      color: $blue;
-      font-size: 23px;
-    }
-    .primary-nav-link {
-      background: $light-blue;
-      font-size: 23px;
-      flex: none;
-      order: 0;
-      flex-grow: 0;
-      border-right: solid $blue 5px;
-      color: $blue;
-    }
-  }
-  .sticky-footer {
-    flex-grow: 1;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .nav-link {
-      flex: none;
-
-      flex-grow: 1;
-      width: 85%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 12px 20px 12px 24px;
-      gap: 12px;
-      height: 48px;
-      background: #ffffff;
-      flex: none;
-      order: 6;
-      flex-grow: 0;
-    }
-    .nav-link:hover {
-      background-color: $light-blue;
-      color: $blue;
-      font-size: 23px;
-    }
-    .btn-logout {
-      order: 1;
-    }
-    .nav-link-help {
-      order: 0;
-    }
-    .btn-profile {
-      height: 92px;
+    .nav-links {
+      height: 70vh;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-
-      padding: 28px 24px;
-      gap: 10px;
-      box-shadow: inset 0px 1px 0px #f1f1f1;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
       padding: 0px;
-      gap: 15px;
-      flex: none;
-      order: 2;
+      gap: 8px;
 
-      .profile-left {
-        .profile-img {
-          background-color: darkblue;
-          width: 42px;
-          height: 42px;
-          border-radius: 100%;
-          display: flex;
-          justify-content: center;
-          overflow: hidden;
+      .nav-link {
+        flex-grow: 1;
 
-          .image {
-            color: $white;
-            font-weight: bold;
-            font-size: 32px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1em;
+        width: calc(100% - 2em);
+        max-width: 100%;
+        gap: 12px;
+        height: 48px;
+        background: #ffffff;
+        flex: none;
+        flex-grow: 0;
+        overflow-x: hidden;
+
+        .nav-link-text {
+          display: none;
+          width: 0px;
+        }
+      }
+      .nav-link:hover {
+        background-color: $light-blue;
+        color: $blue;
+        font-size: 22.5px;
+      }
+      .active-nav-link {
+        background: #f7f7fb;
+        font-size: 23px;
+        border-right: solid #4040f2 5px;
+        color: #4040f2;
+      }
+    }
+    .sticky-footer {
+      flex-grow: 1;
+      height: 25vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 5vw;
+      transition-property: width;
+      transition-duration: 0.5s;
+
+      .nav-link {
+        flex: none;
+
+        flex-grow: 1;
+        width: 85%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 20px 12px 24px;
+        gap: 12px;
+        height: 48px;
+        background: #ffffff;
+        flex: none;
+        order: 6;
+        flex-grow: 0;
+        .nav-link-text {
+          display: none;
+          width: 0px;
+        }
+      }
+
+      .nav-link:hover {
+        background-color: $light-blue;
+        color: $blue;
+        font-size: 23px;
+      }
+      .btn-logout {
+        order: 3;
+      }
+      .nav-link-help {
+        order: 1;
+      }
+      .btn-profile {
+        order: 6;
+        height: 92px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+        padding: 28px 24px;
+        gap: 10px;
+        box-shadow: inset 0px 1px 0px #f1f1f1;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 15px;
+        flex: none;
+
+        justify-content: center;
+        align-self: baseline;
+
+        .profile-left {
+          .profile-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+
+            .image {
+              color: $white;
+              font-weight: bold;
+              font-size: 32px;
+            }
+          }
+        }
+        .nav-link-text {
+          display: none;
+          width: 0px;
+        }
+        .profile-text {
+          .profile-name {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+
+            color: $secondary;
+          }
+          .profile-plan {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 150%;
+
+            color: #4f5b67;
           }
         }
       }
-      .profile-text {
-        .profile-name {
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 100%;
+    }
+  }
+  .nav-bar:hover {
+    width: 15vw;
+    min-width: 240px;
+    transition-property: all;
+    transition-duration: 0.5s;
 
-          color: $secondary;
-        }
-        .profile-plan {
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 150%;
+    .nav-links {
+      .logo-main {
+        width: 20vw;
+        background-image: url("../assets/logos/bglight.svg");
+        background-repeat: no-repeat;
+        background-size: 15vw;
+        background-position: center;
+        align-self: center;
+      }
+    }
+    .nav-link {
+      .nav-link-text {
+        display: flex;
+        white-space: nowrap;
+      }
+    }
+    .sticky-footer {
+      width: 15vw;
+      transition-property: width;
+      transition-duration: 0.5s;
 
-          color: #4f5b67;
+      .btn-profile {
+        .nav-link-text {
+          overflow-x: hidden;
+          display: block;
+          width: auto;
+          white-space: nowrap;
         }
       }
     }
+  }
+}
+@media only screen and (max-width: 640px) {
+  .nav-bar-mobile {
+    background-color: $light-blue;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    .logo-main {
+      background-image: url("../assets/logos/bglight.svg");
+      background-size: 100%;
+      width: 40em;
+      max-height: 7vh;
+      max-width: 40vw;
+    }
+    .btn-profile {
+      display: none;
+    }
+    .btn-menu {
+      position: absolute;
+
+      font-size: 5vh;
+      height: 10vh;
+      left: 2vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: $secondary;
+    }
+  }
+
+  .nav-bar {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    z-index: 2000;
+
+    width: max-content;
+    height: 100%;
+    max-height: 80vh;
+
+    background-color: $light-blue;
+    font-size: 2em;
+
+    padding-top: 7vh;
+    transition-property: all;
+    transition-duration: 0.4s;
+    .logo-main {
+      display: none;
+    }
+    .nav-links {
+      background-color: $light-blue;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      margin: auto;
+
+      .nav-link {
+        width: max-content;
+        display: block;
+
+        text-decoration: none;
+        margin: 10px;
+        margin-bottom: 3vh;
+
+        .nav-link-text {
+          color: $secondary;
+        }
+        .nav-link-icon {
+          display: none;
+        }
+      }
+    }
+    .sticky-footer {
+      z-index: 2000;
+      width: auto;
+      flex-direction: row;
+      margin-top: 20vh;
+      .nav-link {
+        width: auto;
+        display: flex;
+        text-decoration: none;
+        margin: 10px;
+        margin-bottom: 3vh;
+        .nav-link-text {
+          color: $secondary;
+        }
+        .nav-link-icon {
+          display: none;
+        }
+      }
+
+      .btn-profile {
+        width: max-content;
+        display: flex;
+        font-size: 0.7em;
+        background-color: $white;
+        border: solid rgba($color: $blue, $alpha: 0.2) 1px;
+        margin: auto;
+        padding: 0.2em;
+        border-radius: 0.3em;
+        align-items: center;
+        vertical-align: middle;
+        .profile-left {
+          img {
+            height: 2.2em;
+            border-radius: 100%;
+            margin-right: 0.4em;
+          }
+        }
+        .profile-name {
+          font-size: 0.8em;
+        }
+        .profile-plan {
+          font-size: 0.6em;
+        }
+      }
+    }
+    .nav-bar-shadow {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba($color: $primary, $alpha: 0);
+
+      top: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+  }
+  .nav-bar-hidden {
+    left: -80vh;
+    transition-property: all;
+    transition-duration: 0.4s;
   }
 }

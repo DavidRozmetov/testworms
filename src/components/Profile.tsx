@@ -1,5 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 
 export const Profile = () => {
@@ -16,17 +17,17 @@ export const Profile = () => {
     });
   });
   return (
-    <div className="btn-profile">
+    <NavLink className="btn-profile" to={"/account"}>
       <div className="profile-left">
         <div className="profile-img">
           {/* <div className="image">D</div> */}
           <img src={userProfileLink} alt="user profile" />
         </div>
       </div>
-      <div className="profile-text">
+      <div className="profile-text nav-link-text">
         <div className="profile-name">{userName}</div>
         <div className="profile-plan">Premium</div>
       </div>
-    </div>
+    </NavLink>
   );
 };

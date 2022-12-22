@@ -1,0 +1,75 @@
+@import "../scss/theme.scss";
+.account-page {
+  width: 60vw;
+  margin: auto;
+  form {
+    .header-button {
+      background-color: transparent;
+      width: 100%;
+      text-align: left;
+      border: none;
+      h2 {
+        color: $blue;
+      }
+    }
+    .checkbox-inputs {
+      .row-checkbox {
+        display: flex;
+        margin: 0.7em;
+        .checkbox {
+          margin-right: 1.2em;
+          width: 1.2em;
+        }
+      }
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 80%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+
+    .btn-submit {
+      position: absolute;
+      bottom: 15vh;
+      left: 25%;
+
+      display: block;
+      margin: 2rem auto;
+      align-self: center;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.25rem;
+      width: 50%;
+      background: $primary;
+      color: $secondary;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 200;
+      transition-property: all;
+      transition-duration: 1s;
+
+      &:hover {
+        font-weight: 700;
+        background-color: rgba($color: $primary, $alpha: 0.8);
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .account-page {
+    width: 90vw;
+
+    margin-top: 5vh;
+    form {
+      padding-left: 7vw;
+    }
+  }
+}

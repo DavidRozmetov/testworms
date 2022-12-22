@@ -1,6 +1,11 @@
 .logo-main {
-  img {
-    width: 90%;
-    background-color: transparent;
-  }
+  height: 10vh;
+  width: 5vh;
+  min-width: 75px;
+
+  background-image: url("../assets/logos/logo-small.png");
+  background-repeat: no-repeat;
+  background-size: 2em;
+  background-position: center;
+  align-self: center;
 }

@@ -1,9 +1,6 @@
+import { NavLink } from "react-router-dom";
 import "../scss/logo.scss";
-import lg from "../assets/logos/bglight.svg";
+
 export const Logo = () => {
-  return (
-    <div className="logo-main">
-      <img src={lg} alt="bookworms test generator logo" />
-    </div>
-  );
+  return <NavLink to="/" className="logo-main"></NavLink>;
 };

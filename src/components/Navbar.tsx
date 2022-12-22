@@ -7,54 +7,89 @@ import {
   AiOutlineLogin,
   AiOutlineFileSearch,
   AiOutlineLogout,
+  AiOutlineMenu,
 } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
 import { BiHelpCircle } from "react-icons/bi";
 
+import { useState } from "react";
+
 export const Navbar = () => {
-  const NavLinkStyles = ({ isActive }: { isActive: boolean }) => {
-    return {
-      background: isActive ? "#f7f7fb" : "#ffffff",
-      fontSize: isActive ? "23px" : "22px",
-      borderRight: isActive ? "solid #4040f2 5px" : "none",
-      color: isActive ? "#4040f2" : "#0a3749",
-    };
+  const [toggle, setToggle] = useState(false);
+  const NavLinkClass = ({ isActive }: { isActive: boolean }) => {
+    return isActive ? "nav-link active-nav-link" : "nav-link";
+  };
+  const ToggleClass = (toggle: Boolean) => {
+    return toggle ? "nav-bar" : "nav-bar nav-bar-hidden";
   };
 
   return (
-    <nav className="nav-bar" id="nav-bar">
-      <a href="/">
+    <>
+      <div className="nav-bar-mobile">
         <Logo />
-      </a>
-      <div className="nav-links">
-        <NavLink to="/" className="nav-link" style={NavLinkStyles}>
-          <AiOutlineDashboard /> <text> Dashboard</text>
-        </NavLink>
-        <NavLink to="/about" className="nav-link" style={NavLinkStyles}>
-          <FcAbout />
-          <text> About</text>
-        </NavLink>
-        <NavLink to="/signup" className="nav-link" style={NavLinkStyles}>
-          <AiOutlineLogin /> <text>Sign up</text>
-        </NavLink>
-        <NavLink to="/documentation" className="nav-link" style={NavLinkStyles}>
-          <AiOutlineFileSearch /> <text>Documentation</text>
-        </NavLink>
+
+        <div className="btn-menu">
+          <AiOutlineMenu
+            className="nav-bar-icon"
+            onClick={() => setToggle(!toggle)}
+          />
+        </div>
       </div>
-      <div className="sticky-footer">
-        <NavLink
-          to="/help"
-          className="nav-link nav-link-help"
-          style={NavLinkStyles}
-        >
-          <BiHelpCircle /> <text>Help Center</text>
-        </NavLink>
-        <NavLink to="/" className="nav-link btn-logout">
-          <AiOutlineLogout />
-          <BtnLogout />
-        </NavLink>
-        <Profile />
-      </div>
-    </nav>
+
+      <nav className={ToggleClass(toggle)} id="nav-bar">
+        <div className="nav-links">
+          <Logo />
+          <NavLink
+            to="/"
+            className={NavLinkClass}
+            onClick={() => setToggle(false)}
+          >
+            <AiOutlineDashboard className="nav-link-icon" />{" "}
+            <span className="nav-link-text"> Dashboard</span>
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={NavLinkClass}
+            onClick={() => setToggle(false)}
+          >
+            <FcAbout className="nav-link-icon" />
+            <span className="nav-link-text"> About</span>
+          </NavLink>
+          <NavLink
+            to="/signup"
+            className={NavLinkClass}
+            onClick={() => setToggle(false)}
+          >
+            <AiOutlineLogin className="nav-link-icon" />{" "}
+            <span className="nav-link-text">Sign up</span>
+          </NavLink>
+          <NavLink
+            to="/documentation"
+            className={NavLinkClass}
+            onClick={() => setToggle(false)}
+          >
+            <AiOutlineFileSearch className="nav-link-icon" />{" "}
+            <span className="nav-link-text">Documentation</span>
+          </NavLink>
+        </div>
+        <div className="sticky-footer">
+          <NavLink to="/help" className={NavLinkClass}>
+            <BiHelpCircle className="nav-link-icon" />{" "}
+            <span className="nav-link-text">Help Center</span>
+          </NavLink>
+          <NavLink to="/login" className="nav-link btn-logout">
+            <AiOutlineLogout className="nav-link-icon" />
+            <BtnLogout />
+          </NavLink>
+          <a onClick={() => setToggle(false)}>
+            <Profile />
+          </a>
+        </div>
+        <div
+          className="nav-bar-shadow"
+          onClick={() => setToggle(!toggle)}
+        ></div>
+      </nav>
+    </>
   );
 };
