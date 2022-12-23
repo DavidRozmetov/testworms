@@ -1,5 +1,7 @@
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import firebase from "firebase/compat/app";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,6 +17,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 
+export const db = getFirestore(app);
+
 export const logout = () => {
   auth
     .signOut()
@@ -25,3 +29,5 @@ export const logout = () => {
       alert(e.message);
     });
 };
+
+export default firebase;

@@ -1,7 +1,67 @@
 import "../scss/auth.scss";
 import "../scss/auth-mobile.scss";
+import React, { useState } from "react";
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 export const SignUp = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [isValid, setIsValid] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { ...errors };
+
+    if (formData.firstName.trim() === "") {
+      newErrors.firstName = "Name is required";
+      valid = false;
+    }
+    if (formData.lastName.trim() === "") {
+      newErrors.lastName = "Last name is required";
+      valid = false;
+    }
+    if (formData.email.trim() === "") {
+      newErrors.email = "Email is required";
+      valid = false;
+    }
+    if (formData.password.trim() === "") {
+      newErrors.password = "Password is required";
+      valid = false;
+    }
+    if (formData.confirmPassword.trim() === "") {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    setIsValid(valid);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    validateForm();
+
+    if (isValid) {
+      console.log(formData);
+    }
+  };
+
   return (
     <div className="sign-up-page">
       <div className="auth-page">
@@ -29,11 +89,13 @@ export const SignUp = () => {
               <label htmlFor="first-name" className="first-name-label">
                 First Name
               </label>
-
               <input
                 type="text"
                 id="first-name"
                 className="input form-input half-width"
+                onChange={(event) =>
+                  setFormData({ ...formData, firstName: event.target.value })
+                }
               />
             </div>
             <div className="last-name-div half-width-div">
@@ -44,6 +106,9 @@ export const SignUp = () => {
                 type="text"
                 id="last-name"
                 className="input form-input half-width"
+                onChange={(event) =>
+                  setFormData({ ...formData, lastName: event.target.value })
+                }
               />
             </div>
           </div>
@@ -53,6 +118,9 @@ export const SignUp = () => {
               type="email"
               id="form-email"
               className="input form-input full-width"
+              onChange={(event) =>
+                setFormData({ ...formData, email: event.target.value })
+              }
             />
           </div>
           <div className="full-width-div">

@@ -8,7 +8,7 @@ export const Home = () => {
   useEffect(() => {
     let receivedUserName = auth.currentUser?.displayName;
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, () => {
       setUserName(receivedUserName ? receivedUserName : "It's broken");
     });
   });

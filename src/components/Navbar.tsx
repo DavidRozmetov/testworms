@@ -37,6 +37,10 @@ export const Navbar = () => {
       </div>
 
       <nav className={ToggleClass(toggle)} id="nav-bar">
+        <div
+          className="nav-bar-shadow"
+          onClick={() => setToggle(!toggle)}
+        ></div>
         <div className="nav-links">
           <Logo />
           <NavLink
@@ -81,14 +85,10 @@ export const Navbar = () => {
             <AiOutlineLogout className="nav-link-icon" />
             <BtnLogout />
           </NavLink>
-          <a onClick={() => setToggle(false)}>
+          <span onClick={() => setToggle(false)}>
             <Profile />
-          </a>
+          </span>
         </div>
-        <div
-          className="nav-bar-shadow"
-          onClick={() => setToggle(!toggle)}
-        ></div>
       </nav>
     </>
   );

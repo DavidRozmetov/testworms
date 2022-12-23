@@ -21,9 +21,9 @@
     font-size: 22px;
     font-weight: 500;
     transition-property: width;
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
     overflow-x: hidden;
-
+    z-index: 1000;
     a {
       color: $secondary;
       text-decoration: none;
@@ -84,7 +84,7 @@
       justify-content: center;
       width: 5vw;
       transition-property: width;
-      transition-duration: 0.5s;
+      transition-duration: 0.1s;
 
       .nav-link {
         flex: none;
@@ -182,7 +182,7 @@
     width: 15vw;
     min-width: 240px;
     transition-property: all;
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
 
     .nav-links {
       .logo-main {
@@ -203,7 +203,7 @@
     .sticky-footer {
       width: 15vw;
       transition-property: width;
-      transition-duration: 0.5s;
+      transition-duration: 0.1s;
 
       .btn-profile {
         .nav-link-text {
@@ -250,7 +250,7 @@
     position: absolute;
     top: 10vh;
     left: 0;
-    z-index: 2000;
+    z-index: 1000;
 
     width: max-content;
     height: 100%;
@@ -261,7 +261,7 @@
 
     padding-top: 7vh;
     transition-property: all;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
     .logo-main {
       display: none;
     }
@@ -271,20 +271,22 @@
       flex-direction: column;
       justify-content: space-evenly;
       margin: auto;
-
+      z-index: 2000;
       .nav-link {
         width: max-content;
         display: block;
-
+        z-index: 2000;
         text-decoration: none;
         margin: 10px;
         margin-bottom: 3vh;
 
         .nav-link-text {
           color: $secondary;
+          z-index: 2000;
         }
         .nav-link-icon {
           display: none;
+          z-index: 2000;
         }
       }
     }
@@ -294,6 +296,7 @@
       flex-direction: row;
       margin-top: 20vh;
       .nav-link {
+        z-index: 2000;
         width: auto;
         display: flex;
         text-decoration: none;
@@ -301,9 +304,11 @@
         margin-bottom: 3vh;
         .nav-link-text {
           color: $secondary;
+          z-index: 2001;
         }
         .nav-link-icon {
           display: none;
+          z-index: 2001;
         }
       }
 
@@ -318,18 +323,26 @@
         border-radius: 0.3em;
         align-items: center;
         vertical-align: middle;
+        z-index: 2000;
         .profile-left {
+          z-index: 2000;
           img {
             height: 2.2em;
             border-radius: 100%;
             margin-right: 0.4em;
+            z-index: 2000;
           }
         }
-        .profile-name {
-          font-size: 0.8em;
-        }
-        .profile-plan {
-          font-size: 0.6em;
+        .profile-text {
+          z-index: 2000;
+          .profile-name {
+            font-size: 0.8em;
+            z-index: 2000;
+          }
+          .profile-plan {
+            font-size: 0.6em;
+            z-index: 2000;
+          }
         }
       }
     }
@@ -337,16 +350,17 @@
       position: absolute;
       width: 100vw;
       height: 100vh;
-      background-color: rgba($color: $primary, $alpha: 0);
+      background-color: rgba($color: $primary, $alpha: 0.01);
+      z-index: 900;
 
       top: 0;
-      bottom: 0;
-      z-index: 0;
+      left: 0;
+      z-index: 1999;
     }
   }
   .nav-bar-hidden {
     left: -80vh;
     transition-property: all;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
   }
 }
