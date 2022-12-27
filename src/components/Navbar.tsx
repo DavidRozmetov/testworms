@@ -15,7 +15,17 @@ import { BiHelpCircle } from "react-icons/bi";
 import { useState } from "react";
 
 export const Navbar = () => {
+  // const showNavbarList: Record<string, boolean> = {
+  //   "/": true,
+  //   "/login": false,
+  //   "/signup": false,
+  //   "/documentation": true,
+  //   "/help": true,
+  //   "/account": false,
+  // };
+
   const [toggle, setToggle] = useState(false);
+
   const NavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? "nav-link active-nav-link" : "nav-link";
   };
@@ -31,7 +41,9 @@ export const Navbar = () => {
         <div className="btn-menu">
           <AiOutlineMenu
             className="nav-bar-icon"
-            onClick={() => setToggle(!toggle)}
+            onClick={() => {
+              setToggle(!toggle);
+            }}
           />
         </div>
       </div>
@@ -39,14 +51,18 @@ export const Navbar = () => {
       <nav className={ToggleClass(toggle)} id="nav-bar">
         <div
           className="nav-bar-shadow"
-          onClick={() => setToggle(!toggle)}
+          onClick={() => {
+            setToggle(!toggle);
+          }}
         ></div>
         <div className="nav-links">
           <Logo />
           <NavLink
             to="/"
             className={NavLinkClass}
-            onClick={() => setToggle(false)}
+            onClick={() => {
+              setToggle(false);
+            }}
           >
             <AiOutlineDashboard className="nav-link-icon" />{" "}
             <span className="nav-link-text"> Dashboard</span>
@@ -54,7 +70,9 @@ export const Navbar = () => {
           <NavLink
             to="/about"
             className={NavLinkClass}
-            onClick={() => setToggle(false)}
+            onClick={() => {
+              setToggle(false);
+            }}
           >
             <FcAbout className="nav-link-icon" />
             <span className="nav-link-text"> About</span>
@@ -62,7 +80,9 @@ export const Navbar = () => {
           <NavLink
             to="/signup"
             className={NavLinkClass}
-            onClick={() => setToggle(false)}
+            onClick={() => {
+              setToggle(false);
+            }}
           >
             <AiOutlineLogin className="nav-link-icon" />{" "}
             <span className="nav-link-text">Sign up</span>
@@ -70,7 +90,9 @@ export const Navbar = () => {
           <NavLink
             to="/documentation"
             className={NavLinkClass}
-            onClick={() => setToggle(false)}
+            onClick={() => {
+              setToggle(false);
+            }}
           >
             <AiOutlineFileSearch className="nav-link-icon" />{" "}
             <span className="nav-link-text">Documentation</span>
@@ -85,7 +107,11 @@ export const Navbar = () => {
             <AiOutlineLogout className="nav-link-icon" />
             <BtnLogout />
           </NavLink>
-          <span onClick={() => setToggle(false)}>
+          <span
+            onClick={() => {
+              setToggle(false);
+            }}
+          >
             <Profile />
           </span>
         </div>

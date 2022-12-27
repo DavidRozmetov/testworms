@@ -38,92 +38,31 @@
           text-align: center;
         }
       }
-      .signup-form {
+      .right-information {
+        height: 100%;
+
         margin: 0;
         width: 90%;
         margin: auto;
         margin-right: 3vw;
         max-height: 90vh;
         margin-top: 5vh;
-        display: grid;
-        grid-template-rows: 2fr 1fr 2fr 2fr 2fr 2fr 2fr;
-        grid-gap: 10px;
 
-        .div-or {
-          text-align: center;
-          justify-content: center;
-          font-size: 2em;
-          hr {
-            margin-top: 1.6em;
-            width: 90%;
-            color: $secondary;
-          }
-          .text-or {
-            background-color: white;
-            width: 1.5em;
-            margin: auto;
-            margin-top: -1.3em;
-          }
-        }
+        .signup-form {
+          height: 80%;
+          display: grid;
+          grid-template-rows: 2fr 2fr 2fr 2fr 1fr 2fr;
+          grid-gap: 10px;
 
-        button {
-          max-height: 64px;
-          border-radius: 4px;
-          font-size: 22px;
-          padding-left: 13px;
-          border: none;
-        }
-        .full-width-div {
-          display: block;
-          label {
-            display: inline-block;
-            position: relative;
-            top: 18px;
-            left: 12px;
-            background-color: $white;
-            padding-left: 10px;
-            padding-right: 10px;
-            .error-message {
-              color: red;
-              font-size: 0.5em;
-            }
-          }
-          input {
+          button {
+            max-height: 64px;
             border-radius: 4px;
             font-size: 22px;
             padding-left: 13px;
-            height: 100%;
-            max-height: 64px;
-            width: 96%;
+            border: none;
           }
-        }
-
-        .sign-up-with-google {
-          align-items: center;
-
-          img {
-            position: relative;
-            float: left;
-            top: 4px;
-            left: 6px;
-            flex-grow: 0;
-            z-index: 1;
-          }
-          .sign-up-with-google-text {
-            line-height: 64px;
-            font-family: $secondary-font-family;
-            margin-top: -3px;
-          }
-        }
-
-        .two-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 10px;
-
-          .half-width-div {
+          .full-width-div {
             display: block;
-
             label {
               display: inline-block;
               position: relative;
@@ -133,23 +72,109 @@
               padding-left: 10px;
               padding-right: 10px;
               .error-message {
-                display: inline;
-                font-size: 0.6em;
+                color: red;
+                font-size: 0.5em;
               }
             }
+
             input {
               border-radius: 4px;
               font-size: 22px;
               padding-left: 13px;
               height: 100%;
               max-height: 64px;
-              width: 92%;
+              width: 96%;
             }
           }
-          .half-width-div-error {
+          .full-width-div-error {
             color: red;
             input {
               border-color: red;
+              color: red;
+            }
+          }
+
+          .two-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+
+            .half-width-div {
+              display: block;
+
+              label {
+                display: inline-block;
+                position: relative;
+                top: 18px;
+                left: 12px;
+                background-color: $white;
+                padding-left: 10px;
+                padding-right: 10px;
+                .error-message {
+                  display: inline;
+                  font-size: 0.6em;
+                }
+              }
+              input {
+                border-radius: 4px;
+                font-size: 22px;
+                padding-left: 13px;
+                height: 100%;
+                max-height: 64px;
+                width: 92%;
+              }
+            }
+            .half-width-div-error {
+              color: red;
+              input {
+                border-color: red;
+              }
+            }
+          }
+        }
+        .alternative-sign-up-div {
+          display: grid;
+          grid-template-rows: 1fr 2fr;
+          grid-gap: 10px;
+          height: 20%;
+          margin-bottom: 50px;
+          .div-or {
+            text-align: center;
+            justify-content: center;
+            font-size: 2em;
+            hr {
+              margin-top: 1.6em;
+              width: 90%;
+              color: $secondary;
+            }
+            .text-or {
+              background-color: white;
+              width: 1.5em;
+              margin: auto;
+              margin-top: -1.3em;
+            }
+          }
+          .sign-up-with-google {
+            align-items: center;
+            width: 100%;
+
+            border: none;
+            height: 66px;
+            border-radius: 4px;
+            font-size: 1em;
+            padding-left: 13px;
+            img {
+              position: relative;
+              float: left;
+              top: 4px;
+              left: 6px;
+              flex-grow: 0;
+              z-index: 1;
+            }
+            .sign-up-with-google-text {
+              line-height: 64px;
+              font-family: $secondary-font-family;
+              margin-top: -3px;
             }
           }
         }
@@ -176,6 +201,9 @@
           border-radius: 3px;
           margin-right: 15px;
         }
+      }
+      .sign-up-button {
+        min-height: 5vh;
       }
     }
   }

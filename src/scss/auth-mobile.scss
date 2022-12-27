@@ -2,7 +2,7 @@
 @media only screen and (max-width: 1000px) {
   .sign-up-page,
   .log-in-page {
-    height: 90vh;
+    height: 95vh;
     width: 100vw;
     margin: 0;
     font-size: 1em;
@@ -11,84 +11,35 @@
     .left-information {
       display: none;
     }
-    .signup-form {
-      margin: 0;
-      width: 95vw;
-      margin: auto;
-      height: 80vh;
+    .right-information {
+      height: 85vh;
+      @media only screen and (min-width: 640px) {
+        padding-top: 5vh;
+      }
+
       margin-top: 5vh;
-      display: grid;
-      grid-gap: 10px;
+      width: 90vw;
+      max-width: 400px;
+      margin: auto;
+      .signup-form {
+        margin: 0;
+        width: 100%;
+        margin: auto;
+        height: 85%;
 
-      .div-or {
-        text-align: center;
-        justify-content: center;
-        font-size: 2em;
-        hr {
-          margin-top: 1.6em;
-          width: 90%;
-          color: $secondary;
-        }
-        .text-or {
-          background-color: white;
-          width: 1.5em;
-          margin: auto;
-          margin-top: -1.3em;
-        }
-      }
+        display: grid;
 
-      button {
-        border: none;
-        max-height: 64px;
-        border-radius: 4px;
-        font-size: 22px;
-        padding-left: 13px;
-      }
-      .full-width-div {
-        display: block;
-        label {
-          position: relative;
-          top: 18px;
-          left: 12px;
-          background-color: $white;
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-        input {
+        grid-gap: 15px;
+
+        button {
+          border: none;
+          height: 60px;
           border-radius: 4px;
           font-size: 22px;
           padding-left: 13px;
-          height: 100%;
-          max-height: 64px;
-          width: 96%;
         }
-      }
-
-      .sign-up-with-google {
-        align-items: center;
-
-        img {
-          position: relative;
-          float: left;
-          top: 4px;
-          left: 6px;
-          flex-grow: 0;
-        }
-        .sign-up-with-google-text {
-          line-height: 64px;
-          font-family: $secondary-font-family;
-          margin-top: -3px;
-        }
-      }
-
-      .two-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-
-        .half-width-div {
+        .full-width-div {
           display: block;
-
           label {
             position: relative;
             top: 18px;
@@ -102,9 +53,96 @@
             font-size: 22px;
             padding-left: 13px;
             height: 100%;
-            max-height: 64px;
-            width: 92%;
+            max-height: 40px;
+            width: 96%;
           }
+        }
+        .full-width-div-error {
+          color: red;
+          input {
+            border-color: red;
+            color: red;
+          }
+        }
+
+        .two-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 10px;
+
+          .half-width-div {
+            display: block;
+
+            label {
+              position: relative;
+              top: 18px;
+              left: 12px;
+              background-color: $white;
+              padding-left: 10px;
+              padding-right: 10px;
+            }
+            input {
+              border-radius: 4px;
+              font-size: 22px;
+              padding-left: 13px;
+              height: 100%;
+              max-height: 64px;
+              width: 92%;
+            }
+          }
+          .half-width-div-error {
+            color: red;
+            input {
+              border-color: red;
+              color: red;
+            }
+          }
+        }
+      }
+    }
+    .alternative-sign-up-div {
+      display: grid;
+      grid-template-rows: 1fr 2fr;
+      grid-gap: 10px;
+      height: 15%;
+      margin-bottom: 50px;
+      .div-or {
+        text-align: center;
+        justify-content: center;
+        font-size: 1.5em;
+        hr {
+          margin-top: 1.6em;
+          width: 90%;
+          color: $secondary;
+        }
+        .text-or {
+          background-color: white;
+          width: 1.5em;
+          margin: auto;
+          margin-top: -1.3em;
+        }
+      }
+      .sign-up-with-google {
+        align-items: center;
+        max-height: 66px;
+        button {
+          border: none;
+          height: 60px;
+          border-radius: 4px;
+          font-size: 22px;
+          padding-left: 13px;
+        }
+        img {
+          position: relative;
+          float: left;
+          top: 4px;
+          left: 6px;
+          flex-grow: 0;
+        }
+        .sign-up-with-google-text {
+          line-height: 64px;
+          font-family: $secondary-font-family;
+          margin-top: -3px;
         }
       }
     }
