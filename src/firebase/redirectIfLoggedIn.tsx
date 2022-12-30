@@ -22,8 +22,6 @@ export const useRedirectIfLoggedIn = (redirectTo: string) => {
 };
 
 export const HomePage = () => {
-  const redirect = useRedirectIfLoggedIn("/home");
-
   return (
     <div>
       <Home />

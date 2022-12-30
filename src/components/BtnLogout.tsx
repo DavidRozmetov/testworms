@@ -1,8 +1,8 @@
-import { logout } from "../firebase/firebase";
+import { logOut } from "../firebase/googleAuth";
 
 export const BtnLogout = () => {
   return (
-    <span onClick={() => logout()} className="logout-button">
+    <span onClick={() => logOut()} className="logout-button">
       <span className="nav-link-text"> Logout </span>
     </span>
   );

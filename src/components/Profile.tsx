@@ -2,6 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { auth } from "../firebase/firebase";
+import { ProfileInitial } from "./ProfileInitial";
 
 export const Profile = () => {
   const [userName, setUserName] = useState("Nothing So far");
@@ -20,8 +21,8 @@ export const Profile = () => {
     <NavLink className="btn-profile" to={"/account"}>
       <div className="profile-left">
         <div className="profile-img">
-          {/* <div className="image">D</div> */}
-          <img src={userProfileLink} alt="user profile" />
+          {userProfileLink && <img src={userProfileLink} alt="user profile" />}
+          {!userProfileLink && <ProfileInitial initial={userName.charAt(0)} />}
         </div>
       </div>
       <div className="profile-text nav-link-text">

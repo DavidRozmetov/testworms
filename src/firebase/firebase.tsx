@@ -19,15 +19,4 @@ export const provider = new GoogleAuthProvider();
 
 export const db = getFirestore(app);
 
-export const logout = () => {
-  auth
-    .signOut()
-    .then(() => {
-      alert("Signed out Successfully");
-    })
-    .catch((e) => {
-      alert(e.message);
-    });
-};
-
 export default firebase;

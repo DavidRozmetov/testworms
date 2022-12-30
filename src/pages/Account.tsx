@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { DeleteUser } from "../firebase/googleAuth";
 import "../scss/account.scss";
 export const Account: React.FC = () => {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [language, setLanguage] = useState("");
   const [notifications, setNotifications] = useState(false);
@@ -25,13 +27,21 @@ export const Account: React.FC = () => {
         </button>
         {!collapsed[0] && (
           <div className="div-personal-details">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              id="firstName"
+              name="firstName"
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+            <label htmlFor="lastName">First Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -124,6 +134,16 @@ export const Account: React.FC = () => {
             />
           </div>
         )}
+        <button
+          className="btn-secondary"
+          onClick={(e) => {
+            e.preventDefault();
+
+            DeleteUser();
+          }}
+        >
+          Delete Account
+        </button>
         <button type="submit" className="btn-submit">
           Save Changes
         </button>

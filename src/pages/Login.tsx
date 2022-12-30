@@ -2,24 +2,19 @@ import "../scss/auth-mobile.scss";
 import "../scss/auth.scss";
 
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
-import { auth } from "../firebase/firebase";
-import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
+import { logInWithEmailAndPassword } from "../firebase/googleAuth";
 
 export const Login = () => {
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    onAuthStateChanged(auth, () => {
-      if (auth.currentUser) {
-        setUser(auth.currentUser);
-      }
-    });
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  if (Object.keys(user).length !== 0) {
-    return <Navigate to="/" />;
-  }
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    // console.log(email, password);
+    logInWithEmailAndPassword(email, password);
+  };
+
   return (
     <div className="log-in-page">
       <div className=" auth-page">
@@ -35,13 +30,16 @@ export const Login = () => {
           </div>
         </div>
         <div className="right-information">
-          <div className="signup-form">
+          <form className="signup-form" onSubmit={(e) => handleSubmit(e)}>
             <div className="full-width-div">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="form-email"
                 className="input form-input full-width"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </div>
             <div className="full-width-div">
@@ -50,6 +48,9 @@ export const Login = () => {
                 type="password"
                 id="form-password"
                 className="input form-input full-width"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
             <div>
@@ -64,8 +65,10 @@ export const Login = () => {
                 </p>
               </div>
             </div>
-            <button className="btn bg-main sign-up-button">Log In</button>
-          </div>
+            <button type="submit" className="btn bg-main sign-up-button">
+              Log In
+            </button>
+          </form>
           <div className="alternative-sign-up-div">
             <div className="div-or">
               <hr />

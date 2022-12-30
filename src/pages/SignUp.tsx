@@ -7,6 +7,7 @@ import { checkPasswordStrength } from "../firebase/checkPasswordStrength";
 import { Navigate, redirect } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { CreateAccountWithEmailAndPassword } from "../firebase/googleAuth";
 
 export const SignUp = () => {
   const [user, setUser] = useState({});
@@ -90,17 +91,17 @@ export const SignUp = () => {
 
     if (isValid && agreedToTerms) {
       console.log(formData);
+      CreateAccountWithEmailAndPassword({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+      });
     } else {
       console.log(errors);
     }
   };
-  if (Object.keys(user).length !== 0) {
-    return <Navigate to="/" />;
-    // let empty = {};
-    // let anotherEmpty = {};
-    // console.log();
-    // // console.log(empty === anotherEmpty);
-  }
+
   return (
     <div className="sign-up-page">
       <div className="auth-page">

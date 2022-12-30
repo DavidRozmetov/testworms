@@ -148,6 +148,24 @@
             justify-content: center;
             overflow: hidden;
 
+            .profile-initial {
+              height: 2.2em;
+              border-radius: 100%;
+              margin: 0;
+              z-index: 2000;
+              width: 42px;
+              height: 42px;
+              display: flex;
+              justify-content: center;
+              .initial-letter {
+                margin-top: 0.2em;
+                text-align: center;
+                font-size: 1.2em;
+                line-height: 1.2em;
+                width: 42px;
+                height: 42px;
+              }
+            }
             .image {
               color: $white;
               font-weight: bold;
