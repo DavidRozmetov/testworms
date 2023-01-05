@@ -30,6 +30,7 @@ export const Navbar = () => {
     "/account",
     "/help",
     "/documentation",
+    "/upload-questions",
   ];
 
   return (

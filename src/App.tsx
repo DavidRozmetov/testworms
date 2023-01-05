@@ -1,5 +1,6 @@
 import "./App.scss";
 import "./scss/nav-bar.scss";
+import "./scss/uploadQuestions.scss";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -14,6 +15,7 @@ import { Navbar } from "./components/Navbar";
 import Help from "./pages/Help";
 import { Account } from "./pages/Account";
 import { ProtectedRoutes, AuthRoutes } from "./components/ProtectedRoutes";
+import { UploadQuestions } from "./pages/UploadQuestions";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -35,6 +37,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<Home />}></Route>
           <Route path="account" element={<Account />}></Route>
+          <Route path="upload-questions" element={<UploadQuestions />}></Route>
         </Route>
 
         <Route element={<AuthRoutes />}>

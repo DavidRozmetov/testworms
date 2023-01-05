@@ -1,7 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
-
+import { redirect, useLocation } from "react-router-dom";
+import { readDocument } from "../firebase/firebaseCRUD";
 import { auth } from "../firebase/firebase";
 
 export const Home = () => {
@@ -15,6 +16,13 @@ export const Home = () => {
       lastLoginAt: string;
     };
   }
+  interface UserAdditionalData {
+    firstName: string;
+    lastName: string;
+    accountType: string;
+    isVerifiedTeacher: boolean;
+    role: string;
+  }
 
   // const user: User = {
   //   metadata: {
@@ -26,13 +34,29 @@ export const Home = () => {
 
   const [userName, setUserName] = useState("Nothing So far");
   const [email, setEmail] = useState("Nothing So far");
-  const [User, setUser] = useState({});
+  const [userRole, setUserRole] = useState("");
+  const [User, setUser] = useState({
+    uid: "",
+  });
 
+  let userData: any = {
+    role: "",
+  };
+  const navigate = useNavigate();
   const location = useLocation();
   const statemessage = location.state;
   const effectRan = useRef(false);
 
   useEffect(() => {
+    if (User.uid !== "") {
+      readDocument("users", User.uid).then((res) => {
+        userData = res.message;
+        if (userData.role !== null) {
+          setUserRole(userData.role);
+        }
+      });
+    }
+
     if (!effectRan.current && statemessage) {
       alert(statemessage);
       location.state = null;
@@ -52,12 +76,23 @@ export const Home = () => {
     };
   });
 
+  const redirectToUploadPage = () => {
+    console.log("click click");
+    navigate("/upload-questions");
+  };
   return (
     <div>
       {process.env.REACT_APP_APP_NAME}
       <div>{email}</div>
       <div>{userName}</div>
       {!auth.currentUser?.emailVerified && <h4>please verify your email</h4>}
+      <p>
+        {userRole === "a" && (
+          <button className="btn-primary" onClick={redirectToUploadPage}>
+            Upload Question Banks
+          </button>
+        )}
+      </p>
     </div>
   );
 };

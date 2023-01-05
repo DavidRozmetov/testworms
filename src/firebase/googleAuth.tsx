@@ -10,10 +10,11 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { auth, provider } from "./firebase";
+import { auth, provider, db } from "./firebase";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { createData, deleteData } from "./firebaseCRUD";
+import { doc, setDoc } from "firebase/firestore";
 
 export const signInwithGoogle = () => {
   signInWithPopup(auth, provider)
@@ -55,18 +56,21 @@ interface UserData {
 export const CreateAccountWithEmailAndPassword = (userData: UserData) => {
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, userData.email, userData.password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in
       window.localStorage.setItem("logged-in", "true");
       const user = userCredential.user;
       updateUserName(userData.firstName, userData.lastName);
-      createData("users", {
+      const data = {
         firstName: userData.firstName,
         lastName: userData.lastName,
         accountType: "free",
         isVerifiedTeacher: false,
         role: "u",
-      });
+      };
+      await setDoc(doc(db, "users", userCredential.user.uid), data);
+
+      // setDoc("users", userCredential.user.uid, userDocument);
       sendEmailToVerify();
 
       // alert("you are logged in");

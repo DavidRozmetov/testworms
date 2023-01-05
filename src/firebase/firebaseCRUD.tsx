@@ -6,6 +6,7 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 
 // createData("users", { first: "david", last: "Fah", born: 1997,});
@@ -45,7 +46,22 @@ export const readData = async (collectionName: string) => {
   }
 };
 
-// await updateData("users", "ywitspr6NBkKE0eVkAzx", {  first: "Montira", last: "Fahhh",})
+//readDocument("users", auth.currentUser)
+export const readDocument = async (
+  collectionName: string,
+  fieldName: string
+) => {
+  const docRef = doc(db, collectionName, fieldName);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return { status: "200", message: docSnap?.data() };
+  } else {
+    // doc.data() will be undefined in this case
+    return { status: "400", message: "No such document!" };
+  }
+};
+
 export const updateData = async (
   collectionName: string,
   document: string,
