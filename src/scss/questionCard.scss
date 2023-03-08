@@ -1,0 +1,27 @@
+.div-question {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+
+  li {
+    margin-bottom: 5px;
+    font-weight: 400;
+    font-size: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &.correct li.correct {
+    color: green;
+    font-weight: bold;
+  }
+
+  &.incorrect li.correct {
+    color: red;
+    font-weight: bold;
+  }
+}

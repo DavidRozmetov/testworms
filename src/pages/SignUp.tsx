@@ -4,7 +4,7 @@ import "../scss/auth-mobile.scss";
 import React, { useState } from "react";
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 import { checkPasswordStrength } from "../firebase/checkPasswordStrength";
-import { Navigate, redirect } from "react-router-dom";
+
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { CreateAccountWithEmailAndPassword } from "../firebase/googleAuth";
@@ -18,6 +18,8 @@ export const SignUp = () => {
       }
     });
   });
+
+  const [email, setEmail] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -36,9 +38,10 @@ export const SignUp = () => {
   const [isValid, setIsValid] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const debouncedValidateForm = useCallback(() => {
-    setTimeout(validateForm, 500);
-  }, [formData]);
+  const debouncedValidateForm = () => {
+    validateForm();
+  };
+
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...errors };
@@ -169,10 +172,16 @@ export const SignUp = () => {
                 className="input form-input full-width"
                 onChange={(event) => {
                   setFormData({ ...formData, email: event.target.value });
-                  debouncedValidateForm();
+                  console.log(formData);
+                  // validateForm();
+                  // debouncedValidateForm();
+                  // console.log(event.target.value);
+                  // setEmail(event.target.value);
+                  // console.log(email);
                 }}
               />
             </div>
+
             <div
               className={`full-width-div ${
                 errors.password !== "" ? " full-width-div-error " : ""
@@ -180,7 +189,7 @@ export const SignUp = () => {
             >
               <label htmlFor="form-password">Password</label>
               <input
-                type="password"
+                type="text"
                 id="form-password"
                 className="input form-input full-width"
                 onChange={(event) => {

@@ -1,0 +1,90 @@
+@import "../scss/theme.scss";
+.book-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  height: 60vh;
+  width: 20vw;
+  overflow-y: scroll;
+  margin-left: 3vw;
+  padding-top: 2em;
+  padding-bottom: 2em;
+
+  .book-button-div {
+    display: flex;
+    .book-button {
+      width: 90%;
+      margin: auto;
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+      text-align: center;
+      padding: 0.3em;
+      border-radius: 0.3em;
+      border: solid 1px $blue;
+      color: $blue;
+      background-color: $white;
+      cursor: pointer;
+    }
+    .book-buttons:-webkit-scrollbar {
+      display: none;
+    }
+    .delete-book-button {
+      background-color: transparent;
+      border: none;
+      color: red;
+      font-size: 1.3em;
+      margin-left: 1em;
+      cursor: pointer;
+    }
+    .delete-book-button:-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .books {
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    width: 20vw;
+    overflow-x: scroll;
+    margin-left: 3vw;
+  }
+}
+.questions-component {
+  background-color: $white;
+  height: 90vh;
+  position: absolute;
+  left: 35vw;
+  top: 2vh;
+  width: 50vw;
+}
+.questions-component-expanded {
+  display: block;
+  max-width: 90vh;
+  overflow-y: scroll;
+}
+.questions-component-collapsed {
+  display: none;
+}
+
+.book-card {
+  border: 1px solid $border;
+  border-radius: 0.2em;
+  color: $secondary;
+  padding: 10px;
+  min-width: 90%;
+  left: 40vw;
+  height: fit-content;
+
+  flex-shrink: 1;
+  margin: 1vh;
+  cursor: pointer;
+
+  h1 {
+    margin-top: 0;
+    color: $blue;
+    font-size: 2em;
+    width: 100%;
+    text-align: center;
+  }
+}

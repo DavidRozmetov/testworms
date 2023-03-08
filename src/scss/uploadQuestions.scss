@@ -1,4 +1,114 @@
+@import "../scss/theme.scss";
+
 .upload-questions-page {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  overflow-y: scroll;
+  background-color: $light-blue;
+
+  margin-left: -1.69vw;
+  .div-upload-file {
+    height: 10vh;
+    width: 25vw;
+
+    display: flex;
+    justify-content: center;
+    .custom-file-input::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    .custom-file-input::before {
+      content: "Upload .txt files";
+      display: inline-block;
+      width: 50%;
+      margin: 10%;
+      margin-left: 20%;
+      border: none;
+      background: $blue;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1.2em;
+      // transition: background 0.2s ease-in-out;
+    }
+
+    .custom-file-input:hover::before {
+      opacity: 0.9;
+    }
+    .custom-file-input:active::before {
+      opacity: 0.8;
+    }
+
+    input[type="file"].custom-file-input {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+
+      color: transparent;
+    }
+  }
+
+  .upload-info-div {
+    width: 25vw;
+    height: 5vh;
+    padding-left: 3vw;
+
+    .upload-info-list {
+      height: 3vh;
+      width: 75%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2em;
+      .uploaded-info-success {
+        color: $color-success;
+      }
+      .uploaded-info-fail {
+        color: $color-fail;
+
+        .failed-books-list {
+          background-color: $white;
+          background-color: alpha($color: $white);
+          z-index: 1;
+          border: solid 1px $border;
+
+          color: $color-fail;
+          position: absolute;
+          width: 20vw;
+          padding-left: 1em;
+          margin-top: -0.5em;
+          margin-left: 2em;
+        }
+      }
+    }
+  }
+
+  .div-submit-button {
+    width: 25vw;
+    height: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .button-submit {
+      background-color: $primary;
+      color: $black;
+      font-size: 1em;
+      padding: 0.65em;
+      border-radius: 0.3em;
+      border: none;
+
+      margin: auto;
+      width: 60%;
+      margin: 10%;
+      margin-left: 20%;
+      margin-top: 10vh;
+      cursor: pointer;
+    }
+    .button-submit:hover {
+      opacity: 0.8;
+    }
+  }
 }
