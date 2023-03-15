@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { BookCard } from "../components/BookCard";
-import { BookButton } from "../components/BookButton";
+
 import { readTxtFile } from "../functions/readTxtFile";
 import "../scss/uploadQuestions.scss";
-import { QuestionsComponent } from "../components/questionsComponent";
 import { UploadQuestionsInfoBar } from "../components/UploadQuestionsInfoBar";
 import { Book } from "../interfaces/Interfaces";
 import { uploadBooksToTheCloud } from "../functions/uploadBooksToTheCloud";
+import { checkForTheSameName } from "../firebase/firebaseCRUD";
 
 export const UploadQuestions = () => {
   const [expanded, setExpanded] = useState(false);
@@ -179,7 +179,6 @@ export const UploadQuestions = () => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-
             uploadBooksToTheCloud(booksArray);
           }}
         >

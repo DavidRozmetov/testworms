@@ -16,6 +16,7 @@ import Help from "./pages/Help";
 import { Account } from "./pages/Account";
 import { ProtectedRoutes, AuthRoutes } from "./components/ProtectedRoutes";
 import { UploadQuestions } from "./pages/UploadQuestions";
+import { ModifyBooks } from "./pages/ModifyBooks";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="account" element={<Account />}></Route>
           <Route path="upload-questions" element={<UploadQuestions />}></Route>
+          <Route path="modify-books" element={<ModifyBooks />}></Route>
         </Route>
 
         <Route element={<AuthRoutes />}>

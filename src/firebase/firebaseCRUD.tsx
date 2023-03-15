@@ -7,7 +7,12 @@ import {
   updateDoc,
   deleteDoc,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { Book } from "../interfaces/Interfaces";
+import { deleteThumbnail } from "./storage";
 
 // createData("users", { first: "david", last: "Fah", born: 1997,});
 export const createData = async (collectionName: string, data: any) => {
@@ -97,4 +102,86 @@ export const deleteData = async (collectionName: string, document: string) => {
       message: "Something went wrong! !" + e,
     };
   }
+};
+
+//read
+export const readBooksData = async (): Promise<any> => {
+  const booksCollection: { [key: string]: any } = [];
+  let booksArray: { bookUID: string; bookId: string; bookName: string }[] = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, "books"));
+    querySnapshot.forEach((doc) => {
+      const bookData = {
+        bookUID: doc.id,
+        bookId: doc.data().bookId,
+        bookName: doc.data().bookName,
+      };
+      booksArray.push(bookData);
+    });
+
+    return {
+      status: 200,
+      message: {
+        books: booksArray,
+      },
+    };
+  } catch (e) {
+    return {
+      status: 400,
+      message: "Something went wrong! !" + e,
+    };
+  }
+};
+
+export const deleteBook = async (bookId: string) => {
+  // if it has a thumbnail, delete thumbnail
+  deleteThumbnail(bookId);
+
+  // delete questions with the same book id
+  const deleteQuestionsAndBook = async () => {
+    const q = query(collection(db, "questions"), where("bookId", "==", bookId));
+    const b = query(collection(db, "books"), where("bookId", "==", bookId));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (question) => {
+      // doc.data() is never undefined for query doc snapshots
+      await deleteDoc(doc(db, "questions", question.id));
+      // await deleteDoc(question);
+      // const questionRef = doc(db, "questions", question.id);
+    });
+
+    // await deleteDoc(doc(db, "books", ))
+
+    const bookSnapshot = await getDocs(b);
+    bookSnapshot.forEach(async (book) => {
+      await deleteDoc(doc(db, "books", book.id));
+    });
+
+    //delete book
+  };
+
+  deleteQuestionsAndBook();
+  alert("The book has been deleted");
+  // delete book
+};
+
+export const checkForTheSameName = async (bookObject: Book) => {
+  //get all the books data
+  // convert them into an array
+  let existingBookNames: string[] = [];
+  const b = query(collection(db, "books"));
+  const booksSnapshot = await getDocs(b);
+
+  booksSnapshot.forEach(async (book) => {
+    existingBookNames.push(book.data().bookName);
+  });
+
+  //checks if the names match
+
+  // if not proceed
+  //else give alert
+  console.log("existing books: " + existingBookNames);
+  console.log("Book Name: " + bookObject.bookName);
+  console.log(existingBookNames.includes(bookObject.bookName));
+  return existingBookNames.includes(bookObject.bookName);
 };

@@ -31,6 +31,7 @@ export const Navbar = () => {
     "/help",
     "/documentation",
     "/upload-questions",
+    "/modify-books",
   ];
 
   return (
