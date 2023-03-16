@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { deleteBook } from "../firebase/firebaseCRUD";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 import { deleteThumbnail, uploadImage } from "../firebase/storage";
 
@@ -17,6 +19,7 @@ export const ModifyBookCard = (props: {
   const bookUID = props.bookUID;
   const thumbnailURL = props.thumbnailSrc;
 
+  const [progress, setProgress] = useState<number>(0);
   const [thumbnailUpload, setThumbnailUpload] = useState<File>();
   if (thumbnailURL !== "") {
     const formHTMLObject = document.getElementById(`book-card-${bookId}`);
@@ -36,6 +39,23 @@ export const ModifyBookCard = (props: {
           : "modify-book-card-no-background"
       }`}
     >
+      <div
+        className={`progres-bar-upload-thumbnail-div 
+        ${
+          progress > 0 && progress < 100
+            ? "progres-bar-upload-thumbnail-visible"
+            : "progres-bar-upload-thumbnail-hidden"
+        } 
+        
+      `}
+      >
+        <CircularProgressbar
+          className="progres-bar-upload-thumbnail"
+          value={progress}
+          text={`${progress}%`}
+        />
+      </div>
+
       <div className="card-head">
         <h3>{bookId}</h3>
         <h2>{bookName}</h2>
@@ -51,7 +71,13 @@ export const ModifyBookCard = (props: {
           onChange={(e) => {
             if (e.target.files) {
               setThumbnailUpload(e.target.files[0]);
-              uploadImage(e.target.files[0], "thumbnails", bookId);
+              uploadImage(
+                e.target.files[0],
+                "thumbnails",
+                bookId,
+                progress,
+                setProgress
+              );
             }
           }}
         />

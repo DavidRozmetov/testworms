@@ -22,6 +22,27 @@
       margin: 1em;
       padding: 1em;
 
+      .progres-bar-upload-thumbnail-div {
+        position: relative;
+        width: 120%;
+        height: 120%;
+        top: -10%;
+        left: -10%;
+        z-index: 100;
+        background-color: rgba($color: $light-blue, $alpha: 0.9);
+        overflow-y: hidden;
+        overflow-x: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .progres-bar-upload-thumbnail {
+          width: 33%;
+        }
+      }
+      .progres-bar-upload-thumbnail-hidden {
+        display: none;
+      }
       .card-head {
         display: flex;
 
