@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { redirect, useLocation } from "react-router-dom";
 import { readDocument } from "../firebase/firebaseCRUD";
 import { auth } from "../firebase/firebase";
+import { toast } from "react-toastify";
 
 export const Home = () => {
   interface User {
@@ -58,7 +59,7 @@ export const Home = () => {
     }
 
     if (!effectRan.current && statemessage) {
-      alert(statemessage);
+      toast(statemessage);
       location.state = null;
     }
 

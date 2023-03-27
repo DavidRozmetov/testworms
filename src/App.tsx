@@ -1,6 +1,9 @@
 import "./App.scss";
 import "./scss/nav-bar.scss";
 import "./scss/uploadQuestions.scss";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -52,6 +55,20 @@ function App() {
         <Route path="help" element={<Help />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </Router>
   );
 }

@@ -7,6 +7,7 @@ import { UploadQuestionsInfoBar } from "../components/UploadQuestionsInfoBar";
 import { Book } from "../interfaces/Interfaces";
 import { uploadBooksToTheCloud } from "../functions/uploadBooksToTheCloud";
 import { checkForTheSameName } from "../firebase/firebaseCRUD";
+import { toast } from "react-toastify";
 
 export const UploadQuestions = () => {
   const [expanded, setExpanded] = useState(false);
@@ -63,7 +64,7 @@ export const UploadQuestions = () => {
           }
         } else {
           setFailedBooks((failedBooks) => [...failedBooks, result.bookName]);
-          // alert("Something went wrong! Couldn't upload" + result.bookName);
+          toast("Something went wrong! Couldn't upload" + result.bookName);
         }
       }
     } catch (error) {
@@ -194,6 +195,15 @@ export const UploadQuestions = () => {
       >
         <div id="book-page">{renderBookCardsComponent(questionsObject)}</div>
       </div>
+      {/* <PushStackMessage
+        status={200}
+        message={"hello"}
+        type={"success"}
+        onClose={() => {
+          console.log("hello");
+        }}
+      ></PushStackMessage> */}
+      {/* <Alert></Alert> */}
     </form>
   );
 };

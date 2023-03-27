@@ -6,18 +6,16 @@ import "../scss/modifyBooks.scss";
 import { getStorage } from "firebase/storage";
 import { getApp } from "firebase/app";
 import { loadAllImages } from "../firebase/storage";
+import { toast } from "react-toastify";
 
 // const firebaseApp = getApp();
 
 export const ModifyBooks = () => {
-  // const storage = getStorage(
-  //   firebaseApp,
-  //   "gs://bookwormstestbank.appspot.com/thumbnails"
-  // );
   const [booksObject, setBooksObject] =
     useState<{ bookUID: string; bookId: string; bookName: string }[]>();
   const [thumbnails, setThumbnails] = useState<Book[] | any>();
   const [thumbnailNameArray, setThumbnailNameArray] = useState<string[]>([]);
+
   useEffect(() => {
     readBooksData()
       .then((res) => {
@@ -30,10 +28,12 @@ export const ModifyBooks = () => {
     loadAllImages("thumbnails")
       .then((thumbnailURLs) => {
         setThumbnails(thumbnailURLs);
+
         thumbnailURLs.forEach((thumbnailUrl) => {
           setThumbnailNameArray((oldArray) => [...oldArray, thumbnailUrl.name]);
         });
       })
+
       .catch((error) => {
         console.error(error);
       });
@@ -65,6 +65,11 @@ export const ModifyBooks = () => {
               stage={book.stage ? book.stage : 0}
               bookUID={book.bookUID}
               thumbnailSrc={findThumbnailUrl(book.bookId)}
+              setThumbnailNameArray={setThumbnailNameArray}
+              thumbnailNameArray={thumbnailNameArray}
+              setThumbnails={setThumbnails}
+              booksObject={booksObject}
+              setBooksObject={setBooksObject}
             ></ModifyBookCard>
           );
         })}

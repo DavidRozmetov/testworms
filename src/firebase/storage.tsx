@@ -1,3 +1,4 @@
+import { rejects } from "assert";
 import {
   deleteObject,
   getDownloadURL,
@@ -6,57 +7,50 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
-import { useState } from "react";
+import React from "react";
+import { SetStateAction, useState } from "react";
 import { Interface } from "readline";
 import { storage } from "./firebase";
 
-export const uploadImage = (
+export function uploadImage(
   image: File,
   location: string,
   bookId: string,
-  progres: number,
   setProgress: React.Dispatch<React.SetStateAction<number>>
-) => {
-  const imageRef = ref(storage, `${location}/${bookId}`);
-  if (image === undefined) {
-    return;
-  }
-  const uploadTask = uploadBytesResumable(imageRef, image);
+): Promise<{ name: string; url: string }> {
+  return new Promise((resolve, reject) => {
+    const imageRef = ref(storage, `${location}/${bookId}`);
+    let message: {
+      status: number;
+      message: string;
+      data?: object;
+    };
 
-  uploadTask.on("state_changed", (snapshot) => {
-    const prog = Math.round(
-      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-    );
+    if (image === undefined) {
+      message = {
+        status: 400,
+        message: "something went wrong",
+      };
+    }
+    const uploadTask = uploadBytesResumable(imageRef, image);
 
-    setProgress(prog);
+    uploadTask.on("state_changed", (snapshot) => {
+      const prog = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      setProgress(prog);
+    });
+
+    uploadTask.then(() => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        resolve({
+          url: downloadURL,
+          name: bookId,
+        });
+      });
+    });
   });
-  // .then(() => {
-
-  //   return {
-  //     status: 200,
-  //     message: "image has been uploaded",
-  //   };
-  // });
-
-  // uploadTask.on('state_changed',
-  // (snapshot) => {
-  //   // Observe state change events such as progress, pause, and resume
-  //   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-  //   const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //   console.log('Upload is ' + progress + '% done');
-  //   switch (snapshot.state) {
-  //     case 'paused':
-  //       console.log('Upload is paused');
-  //       break;
-  //     case 'running':
-  //       console.log('Upload is running');
-  //       break;
-  //   }
-  // },
-  // (error) => {
-  //   // Handle unsuccessful uploads
-  // },
-};
+}
 
 export const loadAllImages = (
   folder: string
@@ -66,9 +60,9 @@ export const loadAllImages = (
       name: string;
       url: string;
     }[] = [];
-    const imageListRef = ref(storage, `${folder}/`);
+    const imageRef = ref(storage, `${folder}/`);
 
-    listAll(imageListRef)
+    listAll(imageRef)
       .then((res) => {
         const promises = res.items.map((item) => {
           return getDownloadURL(item).then((url) => {
@@ -94,18 +88,57 @@ export const loadAllImages = (
   });
 };
 
-export const deleteThumbnail = (imageId: string) => {
-  const desertRef = ref(storage, `thumbnails/${imageId}`);
+export const loadImage = (
+  folder: string,
+  imageName: string
+): Promise<{ name: string; url: string }> => {
+  return new Promise((resolve, reject) => {
+    let thumbnailData: {
+      name: string;
+      url: string;
+    };
+    const imageRef = ref(storage, `${folder}/${imageName}`);
 
-  // Delete the file
-  deleteObject(desertRef)
-    .then(() => {
-      return {
-        status: 200,
-        message: "Thumbnail Deleted",
+    return getDownloadURL(imageRef).then((url) => {
+      thumbnailData = {
+        name: imageName,
+        url: url,
       };
-    })
-    .catch((error) => {
-      // Uh-oh, an error occurred!
+
+      Promise.resolve(thumbnailData).catch((error) => {
+        reject(error);
+      });
     });
+  });
+};
+
+export const deleteThumbnail = (
+  imageId: string,
+  thumbnailNameArray?: string[],
+  setThumbnailNameArray?: React.Dispatch<React.SetStateAction<string[]>>
+): Promise<{ status: number; message: string }> => {
+  return new Promise((resolve, reject) => {
+    const desertRef = ref(storage, `thumbnails/${imageId}`);
+    // Delete the file
+
+    if (thumbnailNameArray && setThumbnailNameArray) {
+      thumbnailNameArray.forEach((item, index) => {
+        if (item === imageId) thumbnailNameArray.splice(index, 1);
+      });
+      setThumbnailNameArray(thumbnailNameArray);
+    }
+    deleteObject(desertRef)
+      .then(() => {
+        resolve({
+          status: 200,
+          message: "Thumbnail Deleted",
+        });
+      })
+      .catch((error) => {
+        resolve({
+          status: 400,
+          message: "Couldn't delete the thumbnail!",
+        });
+      });
+  });
 };

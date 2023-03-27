@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { Book } from "../interfaces/Interfaces";
 import { deleteThumbnail } from "./storage";
+import { resolve } from "path";
 
 // createData("users", { first: "david", last: "Fah", born: 1997,});
 export const createData = async (collectionName: string, data: any) => {
@@ -133,8 +134,9 @@ export const readBooksData = async (): Promise<any> => {
   }
 };
 
-export const deleteBook = async (bookId: string) => {
+export const deleteBook = async (bookId: string): Promise<any> => {
   // if it has a thumbnail, delete thumbnail
+  // async (): Promise<any>
   deleteThumbnail(bookId);
 
   // delete questions with the same book id
@@ -161,8 +163,11 @@ export const deleteBook = async (bookId: string) => {
   };
 
   deleteQuestionsAndBook();
-  alert("The book has been deleted");
-  // delete book
+
+  return {
+    status: 400,
+    message: "Book has been deleted",
+  };
 };
 
 export const checkForTheSameName = async (bookObject: Book) => {
