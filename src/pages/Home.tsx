@@ -78,7 +78,6 @@ export const Home = () => {
   });
 
   const redirectToUploadPage = () => {
-    console.log("click click");
     navigate("/upload-questions");
   };
   return (

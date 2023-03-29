@@ -72,7 +72,7 @@ export const updateData = async (
   collectionName: string,
   document: string,
   data: any
-) => {
+): Promise<any> => {
   const dataRef = doc(db, collectionName, document);
 
   try {
@@ -108,7 +108,12 @@ export const deleteData = async (collectionName: string, document: string) => {
 //read
 export const readBooksData = async (): Promise<any> => {
   const booksCollection: { [key: string]: any } = [];
-  let booksArray: { bookUID: string; bookId: string; bookName: string }[] = [];
+  let booksArray: {
+    bookUID: string;
+    bookId: string;
+    bookName: string;
+    stage: string | undefined;
+  }[] = [];
   try {
     const querySnapshot = await getDocs(collection(db, "books"));
     querySnapshot.forEach((doc) => {
@@ -116,6 +121,7 @@ export const readBooksData = async (): Promise<any> => {
         bookUID: doc.id,
         bookId: doc.data().bookId,
         bookName: doc.data().bookName,
+        stage: doc.data().stage,
       };
       booksArray.push(bookData);
     });

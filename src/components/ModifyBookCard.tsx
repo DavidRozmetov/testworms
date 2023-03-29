@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { deleteBook } from "../firebase/firebaseCRUD";
+import { deleteBook, updateData } from "../firebase/firebaseCRUD";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { RxCross1 } from "react-icons/rx";
@@ -20,11 +20,33 @@ export const ModifyBookCard = (props: {
   thumbnailNameArray: string[];
   setThumbnails: Dispatch<SetStateAction<any[]>>;
   booksObject:
-    | { bookUID: string; bookId: string; bookName: string }[]
+    | {
+        bookUID: string;
+        bookId: string;
+        bookName: string;
+        stage: string | undefined;
+      }[]
     | undefined;
   setBooksObject: Dispatch<
     SetStateAction<
-      { bookUID: string; bookId: string; bookName: string }[] | undefined
+      | {
+          bookUID: string;
+          bookId: string;
+          bookName: string;
+          stage: string | undefined;
+        }[]
+      | undefined
+    >
+  >;
+  setSearchResults: Dispatch<
+    SetStateAction<
+      | {
+          bookUID: string;
+          bookId: string;
+          bookName: string;
+          stage: string | undefined;
+        }[]
+      | undefined
     >
   >;
 }) => {
@@ -38,6 +60,7 @@ export const ModifyBookCard = (props: {
   const setThumbnailNameArray = props.setThumbnailNameArray;
   const thumbnailNameArray = props.thumbnailNameArray;
   const setThumbnails = props.setThumbnails;
+  const setSearchResults = props.setSearchResults;
   const [progress, setProgress] = useState<number>(0);
   const [thumbnailUpload, setThumbnailUpload] = useState<File>();
   const [isThumbnailDeleted, setIsThumbnailDeleted] = useState(false);
@@ -286,6 +309,11 @@ export const ModifyBookCard = (props: {
               toast.success(res.message, { autoClose: 2000 });
             });
             e.preventDefault();
+            setSearchResults(
+              booksObject?.filter((book) => {
+                return book.bookId !== bookId;
+              })
+            );
             setBooksObject(
               booksObject?.filter((book) => {
                 return book.bookId !== bookId;
@@ -326,8 +354,29 @@ export const ModifyBookCard = (props: {
         <h2>{bookName}</h2>
       </div>
 
-      <div className="buttons">
-        <select name="select-stage" id="select-stage">
+      <div className="book-info">
+        <a href={`modify-questions/${bookId}`}>Questions</a>
+        <a href={`modify-questions/${bookId}`}>50</a>
+        <label htmlFor="select-stage">Stages</label>
+        <select
+          name="select-stage"
+          id="select-stage"
+          placeholder={stage + ""}
+          defaultValue={stage}
+          onChange={async (e) => {
+            const lv = e.target.value;
+            updateData("books", bookUID, {
+              stage: lv,
+            }).then((res) => {
+              if (res.status === 200) {
+                toast.success(bookName + " stage updated to " + lv);
+              } else {
+                res.error("Something went wrong! Couldn't update the level");
+              }
+            });
+          }}
+        >
+          <option value="">-</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
