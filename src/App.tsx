@@ -20,6 +20,7 @@ import { Account } from "./pages/Account";
 import { ProtectedRoutes, AuthRoutes } from "./components/ProtectedRoutes";
 import { UploadQuestions } from "./pages/UploadQuestions";
 import { ModifyBooks } from "./pages/ModifyBooks";
+import { ModifyQuestions } from "./pages/ModifyQuestions";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -43,6 +44,10 @@ function App() {
           <Route path="account" element={<Account />}></Route>
           <Route path="upload-questions" element={<UploadQuestions />}></Route>
           <Route path="modify-books" element={<ModifyBooks />}></Route>
+          <Route
+            path="modify-questions/*"
+            element={<ModifyQuestions />}
+          ></Route>
         </Route>
 
         <Route element={<AuthRoutes />}>
@@ -67,8 +72,6 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />
     </Router>
   );
 }

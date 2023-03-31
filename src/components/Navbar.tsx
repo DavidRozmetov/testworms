@@ -25,13 +25,14 @@ export const Navbar = () => {
   };
 
   const NavBarShownPages = [
-    "/",
-    "/about",
-    "/account",
-    "/help",
-    "/documentation",
-    "/upload-questions",
-    "/modify-books",
+    "",
+    "about",
+    "account",
+    "help",
+    "documentation",
+    "upload-questions",
+    "modify-books",
+    "modify-questions",
   ];
 
   return (
@@ -49,7 +50,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {NavBarShownPages.includes(useLocation().pathname) && (
+      {NavBarShownPages.includes(useLocation().pathname.split("/")[1]) && (
         <nav className={ToggleClass(toggle)} id="nav-bar">
           <div
             className="nav-bar-shadow"

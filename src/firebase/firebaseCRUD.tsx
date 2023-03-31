@@ -105,6 +105,27 @@ export const deleteData = async (collectionName: string, document: string) => {
   }
 };
 
+export const getUidFromId = async (
+  collectionName: string,
+  keyName: string,
+  id: string
+): Promise<{
+  status: number;
+  message: string;
+}> => {
+  let uid: string = "";
+
+  const q = query(collection(db, collectionName), where(keyName, "==", id));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    uid = doc.id;
+  });
+
+  return {
+    status: 200,
+    message: uid,
+  };
+};
 //read
 export const readBooksData = async (): Promise<any> => {
   const booksCollection: { [key: string]: any } = [];
@@ -195,4 +216,24 @@ export const checkForTheSameName = async (bookObject: Book) => {
   console.log("Book Name: " + bookObject.bookName);
   console.log(existingBookNames.includes(bookObject.bookName));
   return existingBookNames.includes(bookObject.bookName);
+};
+
+export const readQuestions = async (bookId: string): Promise<any> => {
+  let questions: any = [];
+  const q = query(collection(db, "questions"), where("bookId", "==", bookId));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    questions.push(doc.data());
+  });
+  return questions;
+};
+
+export const readBookData = async (bookId: string) => {
+  let questions: any;
+  const q = query(collection(db, "books"), where("bookId", "==", bookId));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    questions = doc.data();
+  });
+  return questions;
 };
