@@ -6,8 +6,10 @@ import { RxCross1 } from "react-icons/rx";
 import { FiEdit2 } from "react-icons/fi";
 import { BsEraserFill, BsInfoCircle } from "react-icons/bs";
 import { toast } from "react-toastify";
-import { deleteThumbnail, loadImage, uploadImage } from "../firebase/storage";
+import { deleteThumbnail, uploadImage } from "../firebase/storage";
 import { BiUpload } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { MdOutlineCancel } from "react-icons/md";
 
 export const ModifyBookCard = (props: {
   bookName: string;
@@ -19,6 +21,7 @@ export const ModifyBookCard = (props: {
   setThumbnailNameArray: Dispatch<SetStateAction<string[]>>;
   thumbnailNameArray: string[];
   setThumbnails: Dispatch<SetStateAction<any[]>>;
+
   booksObject:
     | {
         bookUID: string;
@@ -58,9 +61,11 @@ export const ModifyBookCard = (props: {
   const setBooksObject = props.setBooksObject;
   const [thumbnailURL, setThumbnailURL] = useState("");
   const setThumbnailNameArray = props.setThumbnailNameArray;
+
   const thumbnailNameArray = props.thumbnailNameArray;
   const setThumbnails = props.setThumbnails;
   const setSearchResults = props.setSearchResults;
+
   const [progress, setProgress] = useState<number>(0);
   const [thumbnailUpload, setThumbnailUpload] = useState<File>();
   const [isThumbnailDeleted, setIsThumbnailDeleted] = useState(false);
@@ -69,6 +74,9 @@ export const ModifyBookCard = (props: {
     useState(false);
   const [infoDeleteThumbnailVisible, setInfoDeleteThumbnailVisible] =
     useState(false);
+
+  const [newBookName, setNewBookName] = useState("");
+  const [toggleSaveButtons, setToggleSaveButtons] = useState(false);
 
   if (thumbnailURL !== "") {
     const formHTMLObject = document.getElementById(`book-card-${bookId}`);
@@ -351,7 +359,62 @@ export const ModifyBookCard = (props: {
       </div>
 
       <div className="card-head">
-        <h2>{bookName}</h2>
+        <h2>
+          <textarea
+            name="book-Name"
+            id={`book-name-${bookId}`}
+            cols={30}
+            maxLength={50}
+            min-rows={1}
+            max-rows={2}
+            defaultValue={bookName}
+            onChange={(e) => {
+              setNewBookName(e.target.value);
+              setToggleSaveButtons(true);
+            }}
+          ></textarea>
+          {(newBookName === bookName ||
+            newBookName === "" ||
+            !toggleSaveButtons) && <FiEdit2 className="btn-edit-book-name" />}
+          {newBookName !== bookName &&
+            newBookName !== "" &&
+            toggleSaveButtons && (
+              <div className="save-buttons">
+                <AiOutlineCheckCircle
+                  title="save changes"
+                  onClick={() => {
+                    updateData("books", bookUID, {
+                      bookName: newBookName,
+                    }).then((res) => {
+                      if (res.status === 200) {
+                        setToggleSaveButtons(false);
+                        toast.success(
+                          "Book Name has been updated to " + newBookName
+                        );
+                      } else {
+                        res.error(
+                          "Something went wrong! Couldn't update the book name"
+                        );
+                      }
+                    });
+                  }}
+                />
+                <MdOutlineCancel
+                  title="discard changes"
+                  onClick={() => {
+                    const bookNameElement = document.getElementById(
+                      "book-name-" + bookId
+                    ) as HTMLInputElement;
+
+                    if (bookNameElement) {
+                      bookNameElement.value = bookName;
+                      setToggleSaveButtons(false);
+                    }
+                  }}
+                />
+              </div>
+            )}
+        </h2>
       </div>
 
       <div className="book-info">

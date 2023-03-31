@@ -427,12 +427,55 @@
     }
     .modify-book-card-no-background {
       .card-head {
-        h3 {
-          color: $border;
-        }
         h2 {
+          display: grid;
+          grid-template-columns: 5fr 1fr;
           font-size: 1.2em;
           color: $blue;
+          gap: 0.2em;
+
+          max-width: 100%;
+          overflow-x: hidden;
+          textarea {
+            margin: auto;
+            font-size: 1.2em;
+            overflow-y: hidden;
+            border: none;
+            resize: none;
+            font-family: $font-family;
+            color: $blue;
+            max-width: 100%;
+          }
+          textarea:focus {
+            font-size: 1.15em;
+            outline: 0px none transparent;
+            text-decoration: underline;
+            max-width: 100%;
+            overflow-y: scroll;
+          }
+
+          .btn-edit-book-name {
+            margin-top: 0.5em;
+            color: $secondary;
+            margin: auto;
+          }
+          .save-buttons {
+            height: 100%;
+
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            align-items: center;
+
+            * {
+              color: $secondary;
+              font-size: 1.4em;
+              margin: auto;
+              cursor: pointer;
+            }
+            *:hover {
+              font-size: 1.5em;
+            }
+          }
         }
       }
     }

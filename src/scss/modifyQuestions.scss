@@ -1,0 +1,160 @@
+@import "../scss/theme.scss";
+.modify-questions-page {
+  width: 100vw;
+  background-color: $light-blue;
+  .book-header {
+    color: $blue;
+    display: grid;
+    grid-template-columns: 1fr 3fr 0.5fr 0.7fr 0.2fr;
+    border-bottom: solid 1px $border;
+    margin-bottom: 0.5em;
+    background-color: white;
+    .book-name {
+      min-width: 10vw;
+      font-size: 1.2em;
+    }
+
+    .search-bar-container {
+      display: grid;
+      grid-template-columns: 7fr 2fr;
+      gap: 0.2em;
+
+      .search-bar-input {
+        display: flex;
+        input {
+          padding-left: 0.5em;
+          border: solid 1px $blue;
+          border-radius: 0.2em;
+          color: $secondary;
+          font-size: 1em;
+          height: 2.4em;
+          width: 85%;
+          margin: auto;
+        }
+
+        * {
+          width: 100%;
+          height: 2.5em;
+          margin: auto;
+        }
+      }
+    }
+    a {
+      height: 100%;
+      text-decoration: none;
+      display: flex;
+      background-color: white;
+      .btn-back {
+        font-size: 1em;
+        height: 3em;
+        margin: auto;
+        width: 90%;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        position: relative;
+        cursor: pointer;
+
+        * {
+          margin: auto;
+          vertical-align: middle;
+        }
+        .btn-back-warning {
+          display: none;
+        }
+      }
+      .btn-back:hover {
+        background-color: $primary;
+        border-radius: 0.2em;
+        .btn-back-warning-visible {
+          display: block;
+          background-color: white;
+          border: solid 0.5px $border;
+          position: absolute;
+          left: -14em;
+          top: 1em;
+          font-size: 0.9em;
+          width: 16em;
+          padding: 0.5em;
+          text-align: left;
+          color: $secondary;
+
+          .warning-icon {
+            font-size: 1.2em;
+            background-color: $primary;
+            border-radius: 100%;
+            padding: 0.3em;
+          }
+        }
+      }
+    }
+    .btn-save-changes {
+      padding: 0.5em;
+      font-size: 1em;
+      border: none;
+
+      background-color: transparent;
+
+      height: 3em;
+      width: 80%;
+      margin: auto;
+    }
+    .btn-active {
+      background-color: $primary;
+      border-radius: 0.2em;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-disabled {
+      cursor: not-allowed;
+    }
+  }
+  .questions-div {
+    width: 80vw;
+    margin: auto;
+    height: 90vh;
+    overflow-x: scroll;
+
+    .question-card {
+      width: 90%;
+      margin: auto;
+      padding: 0.5em;
+      //   border-bottom: solid 0.5px $border;
+      background-color: white;
+      margin-bottom: 0.5em;
+      input {
+        padding: 0.5em;
+        margin: 0.3em;
+        border: none;
+        border-bottom: solid 1px $border;
+        border-radius: 0;
+        font-size: 1em;
+      }
+      input:focus {
+        outline: none;
+      }
+      .main-question {
+        input {
+          width: 90%;
+        }
+      }
+      .options {
+        display: grid;
+        grid-template-columns: 1fr 9fr;
+        font-size: 1em;
+
+        input {
+          width: 50%;
+        }
+        .option-select {
+          cursor: pointer;
+          font-size: 2em;
+        }
+        .correct-answer {
+          color: $secondary;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
