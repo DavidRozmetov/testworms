@@ -11,4 +11,5 @@ export interface Question {
   b: string;
   c: string;
   d: string;
+  type: string;
 }

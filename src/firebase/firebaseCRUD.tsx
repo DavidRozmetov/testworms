@@ -212,9 +212,6 @@ export const checkForTheSameName = async (bookObject: Book) => {
 
   // if not proceed
   //else give alert
-  console.log("existing books: " + existingBookNames);
-  console.log("Book Name: " + bookObject.bookName);
-  console.log(existingBookNames.includes(bookObject.bookName));
   return existingBookNames.includes(bookObject.bookName);
 };
 

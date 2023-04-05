@@ -64,15 +64,7 @@ export const SearchBarModifyBookCard = (props: {
   const setIsGrouped = props.setIsGrouped;
   return (
     <div className="search-bar-container">
-      <button
-        className="btn-upload-books"
-        onClick={() => {
-          navigate("/upload-questions");
-        }}
-      >
-        <BiUpload />
-        <span> Upload Books</span>
-      </button>
+      <h2 className="books-length">{booksObject?.length} books</h2>
       <div className="search-bar">
         <input
           className="search-bar-input"
@@ -200,16 +192,21 @@ export const SearchBarModifyBookCard = (props: {
             isGrouped ? "grouped-view" : "ungrouped-view"
           }`}
           onClick={() => {
-            console.log(isGrouped);
             setIsGrouped(!isGrouped);
           }}
         >
           <FaLayerGroup />
         </div>
-        <div className="view-type">
-          <MdCalendarViewMonth />
-        </div>
       </div>
+      <button
+        className="btn-upload-books"
+        onClick={() => {
+          navigate("/upload-questions");
+        }}
+      >
+        <BiUpload />
+        <span> Upload Books</span>
+      </button>
     </div>
   );
 };

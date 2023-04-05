@@ -1,12 +1,35 @@
 @import "../scss/theme.scss";
 
 .upload-questions-page {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow-y: scroll;
   background-color: $light-blue;
-
   margin-left: -1.69vw;
+
+  .btn-go-to-modify-books {
+    position: absolute;
+    right: 2em;
+    margin-top: 0.75em;
+
+    background-color: $primary;
+    padding: 0.6em;
+    width: 10em;
+
+    text-align: center;
+    text-decoration: none;
+    color: $secondary;
+    border-radius: 0.4em;
+
+    .icon-btn {
+      height: 0.95em;
+      margin: auto;
+    }
+    .text-btn {
+      font-size: 1em;
+      margin: auto;
+    }
+  }
   .div-upload-file {
     height: 10vh;
     width: 25vw;
@@ -18,7 +41,7 @@
       color: transparent;
     }
     .custom-file-input::before {
-      content: "Upload .txt files";
+      content: "Load .txt files";
       display: inline-block;
       width: 50%;
       margin: 10%;
@@ -31,7 +54,6 @@
       cursor: pointer;
       text-align: center;
       font-size: 1.2em;
-      // transition: background 0.2s ease-in-out;
     }
 
     .custom-file-input:hover::before {

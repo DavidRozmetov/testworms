@@ -29,12 +29,43 @@ export const readTxtFile = (file: any): Promise<any> => {
         return formattedName;
       };
 
-      const retutnMCQQuestionLines = (text: string) => {
+      const returnMCQQuestionLines = (text: string) => {
         let beginningLine;
         let endingLine;
         let questionLines = [];
+
+        //The following code can take care of every issue, Use it to find the sequesnce of 50 in a given text
+        // let lines = [0, 0, 0, 0, 0, 0, 0, 0];
+        // for (let j = 1; j <= 50; j++) {
+        //   for (let a = 0; a < text.length; a++) {
+        //     if (text[a].trim().startsWith(j + "\t")) {
+        //       if (j > 8) {
+        //         lines.push(a);
+        //         break;
+        //       }
+        //     }
+        //   }
+        // }
+        // let averageLength = true;
+        // for (let l = 8; l < lines.length - 1; l++) {
+        //   if (!(lines[l + 1] - lines[l] > 0 && lines[l + 1] - lines[l] < 10)) {
+        //     averageLength = false;
+        //   }
+        // }
+
+        // if (averageLength) {
+        //   for (let i = 8; i >= 0; i--) {
+        //     lines[i] = lines[i + 1] - 5;
+        //   }
+        // }
+
+        // console.log(lines);
+        // for (let a = 0; a < 50; a++) {
+        //   console.log(text[lines[a]] + "(line: " + lines[a] + ")");
+        // }
+
         for (let a = 0; a < text.length; a++) {
-          if (text[a] === "Setting") {
+          if (text[a].trim() === "Setting") {
             if (!beginningLine) {
               beginningLine = a + 2;
             } else {
@@ -70,6 +101,18 @@ export const readTxtFile = (file: any): Promise<any> => {
 
         while (questionIndex < 50) {
           for (let lineIndex = 0; lineIndex < questions.length; lineIndex++) {
+            let type = "";
+            if (questionIndex <= 10) {
+              type = "Setting";
+            } else if (questionIndex <= 20) {
+              type = "Characters";
+            } else if (questionIndex <= 30) {
+              type = "Dialogue";
+            } else if (questionIndex <= 40) {
+              type = "Vocabulary";
+            } else if (questionIndex <= 50) {
+              type = "Plot";
+            }
             if (questions[lineIndex].includes(questionIndex + "\t")) {
               questionsObject[questionIndex] = {
                 question: removeTab(questions[lineIndex], questionIndex + ""),
@@ -77,7 +120,9 @@ export const readTxtFile = (file: any): Promise<any> => {
                 b: removeOptionTab(questions[lineIndex + 2], "b"),
                 c: removeOptionTab(questions[lineIndex + 3], "c"),
                 d: removeOptionTab(questions[lineIndex + 4], "d"),
+                type: type,
               };
+
               questionIndexEnd = lineIndex + 5;
 
               questionIndex += 1;
@@ -107,7 +152,7 @@ export const readTxtFile = (file: any): Promise<any> => {
       };
       // Seperate the MCQ questions
       const isolateMCQ = (questions: string) => {
-        const mcqQuestionLines = retutnMCQQuestionLines(questions);
+        const mcqQuestionLines = returnMCQQuestionLines(questions);
 
         const questionsObject = seperateQuestions(mcqQuestionLines);
 

@@ -4,10 +4,14 @@ import { BookCard } from "../components/BookCard";
 import { readTxtFile } from "../functions/readTxtFile";
 import "../scss/uploadQuestions.scss";
 import { UploadQuestionsInfoBar } from "../components/UploadQuestionsInfoBar";
-import { Book } from "../interfaces/Interfaces";
+
 import { uploadBooksToTheCloud } from "../functions/uploadBooksToTheCloud";
-import { checkForTheSameName } from "../firebase/firebaseCRUD";
+
 import { toast } from "react-toastify";
+import { createRandomNumberId } from "../functions/createRandomNumberId";
+import { checkForTheSameName, createData } from "../firebase/firebaseCRUD";
+import { Book, Question } from "../interfaces/Interfaces";
+import { AiTwotoneEdit } from "react-icons/ai";
 
 export const UploadQuestions = () => {
   const [expanded, setExpanded] = useState(false);
@@ -20,6 +24,7 @@ export const UploadQuestions = () => {
 
   const [booksArray, setBooksArray] = useState<Book[]>([]);
   const [failedBooks, setFailedBooks] = useState<string[]>([]);
+
   const isNotUploaded = (bookName: string) => {
     if (booksArray.find((book) => book.bookName === bookName)) {
       return false;
@@ -42,6 +47,7 @@ export const UploadQuestions = () => {
       };
       for (const file of fileArray) {
         const result = await readTxtFile(file);
+
         questionObjects = result;
         if (Object.keys(result.questions).length !== 0) {
           if (isNotUploaded(result.bookName)) {
@@ -64,7 +70,12 @@ export const UploadQuestions = () => {
           }
         } else {
           setFailedBooks((failedBooks) => [...failedBooks, result.bookName]);
-          toast("Something went wrong! Couldn't upload" + result.bookName);
+          toast.error(
+            "Something went wrong! Couldn't upload" + result.bookName,
+            {
+              autoClose: 1000,
+            }
+          );
         }
       }
     } catch (error) {
@@ -146,8 +157,16 @@ export const UploadQuestions = () => {
     }
   };
 
+  const createARandomIdWithInitial = (initial: string, idLength: number) => {
+    return initial + createRandomNumberId(idLength);
+  };
+
   return (
-    <form className="div-upload upload-questions-page">
+    <div className="div-upload upload-questions-page">
+      <a href="modify-books" className="btn-go-to-modify-books">
+        <AiTwotoneEdit className="icon-btn" />
+        <span className="text-btn"> Modify Books</span>
+      </a>
       <div className="div-upload-file">
         <input
           type="file"
@@ -180,7 +199,54 @@ export const UploadQuestions = () => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            uploadBooksToTheCloud(booksArray);
+            booksArray.map(async (book) => {
+              if ((await checkForTheSameName(book)) === false) {
+                const bookData = {
+                  bookId: createARandomIdWithInitial("B", 7),
+                  bookName: book.bookName,
+                };
+                createData("books", bookData).then((res) => {
+                  toast.success(
+                    "The book '" +
+                      bookData.bookName +
+                      "' has been uploaded successuflly",
+                    {
+                      autoClose: 2000,
+                    }
+                  );
+                  if (booksArray[booksArray.length - 1] === book) {
+                    toast.info("All books have been uploaded");
+                  }
+                });
+                Object.keys(book.questions).map((questionIndex) => {
+                  const question = book.questions[questionIndex] as Question;
+                  const questionId = createARandomIdWithInitial("Q", 9);
+
+                  const questionObject = {
+                    questionId: questionId,
+                    bookId: bookData.bookId,
+                    question: question.question,
+                    a: question.a,
+                    b: question.b,
+                    c: question.c,
+                    d: question.d,
+                    answer: book.answerKey[questionIndex],
+                    type: question.type,
+                  };
+                  createData("questions", questionObject).then((res) => {});
+                });
+              } else {
+                toast.error(
+                  "The book '" + book.bookName + "' is already in the cloud!",
+                  {
+                    autoClose: 3000,
+                  }
+                );
+                if (booksArray[booksArray.length - 1] === book) {
+                  toast.info("All books have been uploaded");
+                }
+              }
+            });
           }}
         >
           Upload the books
@@ -195,15 +261,6 @@ export const UploadQuestions = () => {
       >
         <div id="book-page">{renderBookCardsComponent(questionsObject)}</div>
       </div>
-      {/* <PushStackMessage
-        status={200}
-        message={"hello"}
-        type={"success"}
-        onClose={() => {
-          console.log("hello");
-        }}
-      ></PushStackMessage> */}
-      {/* <Alert></Alert> */}
-    </form>
+    </div>
   );
 };

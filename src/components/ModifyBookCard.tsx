@@ -78,6 +78,7 @@ export const ModifyBookCard = (props: {
   const [newBookName, setNewBookName] = useState("");
   const [toggleSaveButtons, setToggleSaveButtons] = useState(false);
 
+  const [toggleAreYouSure, setToggleAreYouSure] = useState(false);
   if (thumbnailURL !== "") {
     const formHTMLObject = document.getElementById(`book-card-${bookId}`);
 
@@ -313,20 +314,7 @@ export const ModifyBookCard = (props: {
           className="btn-delete-book"
           title={`delete ${bookName}`}
           onClick={(e) => {
-            deleteBook(bookId).then((res) => {
-              toast.success(res.message, { autoClose: 2000 });
-            });
-            e.preventDefault();
-            setSearchResults(
-              booksObject?.filter((book) => {
-                return book.bookId !== bookId;
-              })
-            );
-            setBooksObject(
-              booksObject?.filter((book) => {
-                return book.bookId !== bookId;
-              })
-            );
+            setToggleAreYouSure(true);
           }}
         >
           {" "}
@@ -419,9 +407,10 @@ export const ModifyBookCard = (props: {
 
       <div className="book-info">
         <a href={`modify-questions/${bookId}`}>Questions</a>
-        <a href={`modify-questions/${bookId}`}>50</a>
+        <span>50</span>
         <label htmlFor="select-stage">Stages</label>
         <select
+          className="modify-book-select-stages"
           name="select-stage"
           id="select-stage"
           placeholder={stage + ""}
@@ -448,6 +437,56 @@ export const ModifyBookCard = (props: {
           <option value="6">6</option>
         </select>
       </div>
+
+      {toggleAreYouSure && (
+        <div className="div-are-you-sure">
+          <div className="are-you-sure-container">
+            <span className="are-you-sure-question">
+              Are you sure you want to delete <b>{bookName}</b> ?
+            </span>
+            <div className="are-you-sure-buttons">
+              <button
+                className="are-you-sure-cancel"
+                onClick={(e) => {
+                  setToggleAreYouSure(false);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                className="are-you-sure-delete"
+                onClick={(e) => {
+                  deleteBook(bookId).then((res) => {
+                    toast.success(res.message, { autoClose: 2000 });
+                  });
+                  e.preventDefault();
+                  setSearchResults(
+                    booksObject?.filter((book) => {
+                      return book.bookId !== bookId;
+                    })
+                  );
+                  setBooksObject(
+                    booksObject?.filter((book) => {
+                      return book.bookId !== bookId;
+                    })
+                  );
+
+                  setToggleAreYouSure(false);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="are-you-sure-background"
+            onClick={(e) => {
+              setToggleAreYouSure(false);
+            }}
+          ></div>
+        </div>
+      )}
     </div>
   );
 };

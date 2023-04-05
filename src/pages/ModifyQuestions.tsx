@@ -22,6 +22,7 @@ export const ModifyQuestions = () => {
       d: string;
       answer: string;
       questionId: string;
+      type: string;
     }[]
   >();
 
@@ -34,6 +35,7 @@ export const ModifyQuestions = () => {
       d: string;
       answer: string;
       questionId: string;
+      type: string;
     }[]
   >();
 
@@ -67,9 +69,18 @@ export const ModifyQuestions = () => {
       d: string;
       answer: string;
       questionId: string;
+      type: string;
     },
 
-    keyName: "question" | "a" | "b" | "c" | "d" | "answer" | "questionId",
+    keyName:
+      | "question"
+      | "a"
+      | "b"
+      | "c"
+      | "d"
+      | "answer"
+      | "questionId"
+      | "type",
     value: string
   ) => {
     let newObject = question;
@@ -84,6 +95,7 @@ export const ModifyQuestions = () => {
       d: string;
       answer: string;
       questionId: string;
+      type: string;
     }[] = [];
 
     const originalQuestion = originalQuestions?.find((oq) => {
@@ -186,140 +198,182 @@ export const ModifyQuestions = () => {
       </div>
 
       <div className="questions-div">
-        {questions
-          ?.filter((question) => {
-            return (
-              question.question.toLocaleLowerCase().includes(searchKeyWord) ||
-              question.a.toLocaleLowerCase().includes(searchKeyWord) ||
-              question.b.toLocaleLowerCase().includes(searchKeyWord) ||
-              question.c.toLocaleLowerCase().includes(searchKeyWord) ||
-              question.d.toLocaleLowerCase().includes(searchKeyWord) ||
-              question.questionId.toLocaleLowerCase().includes(searchKeyWord)
-            );
-          })
-          .map((question, i = 0) => {
-            return (
-              <div key={question.questionId} className="question-card">
-                <div className="main-question">
-                  <input
-                    type="text"
-                    className="question-input"
-                    defaultValue={question.question}
-                    onChange={(e) => {
-                      upDateQuestionsArray(
-                        question,
+        {questions?.filter((question) => {
+          return (
+            question.question.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.a.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.b.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.c.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.d.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.questionId.toLocaleLowerCase().includes(searchKeyWord)
+          );
+        }).length !== 0 &&
+          questions
+            ?.filter((question) => {
+              return (
+                question.question.toLocaleLowerCase().includes(searchKeyWord) ||
+                question.a.toLocaleLowerCase().includes(searchKeyWord) ||
+                question.b.toLocaleLowerCase().includes(searchKeyWord) ||
+                question.c.toLocaleLowerCase().includes(searchKeyWord) ||
+                question.d.toLocaleLowerCase().includes(searchKeyWord) ||
+                question.questionId.toLocaleLowerCase().includes(searchKeyWord)
+              );
+            })
+            .map((question, i = 0) => {
+              return (
+                <div key={question.questionId} className="question-card">
+                  <div className="main-question">
+                    <select
+                      name="question-type"
+                      id={"select-type- " + question.questionId}
+                      defaultValue={question.type}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
 
-                        "question",
-                        e.target.value
-                      );
-                    }}
-                  />
+                          "type",
+                          e.target.value
+                        );
+                      }}
+                    >
+                      <option value="Setting">Setting</option>
+                      <option value="Character">Character</option>
+                      <option value="Dialogue">Dialogue</option>
+                      <option value="Vocabulary">Vocabulary</option>
+                      <option value="Plot">Plot</option>
+                    </select>
+                    <input
+                      type="text"
+                      className="question-input"
+                      defaultValue={question.question}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
+
+                          "question",
+                          e.target.value
+                        );
+                      }}
+                    />
+                  </div>
+                  <div className="options">
+                    <input
+                      type="radio"
+                      value="a"
+                      name={question.questionId}
+                      className="option-select"
+                      defaultChecked={question.answer === "a"}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
+
+                          "answer",
+                          e.target.value
+                        );
+                      }}
+                    />
+                    <input
+                      type="text"
+                      className={`option-input ${
+                        question.answer === "a" ? "correct-answer" : ""
+                      }`}
+                      defaultValue={question.a}
+                      onChange={(e) => {
+                        upDateQuestionsArray(question, "a", e.target.value);
+                      }}
+                    />
+                    <input
+                      type="radio"
+                      value="b"
+                      name={question.questionId}
+                      className="option-select"
+                      defaultChecked={question.answer === "b"}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
+
+                          "answer",
+                          e.target.value
+                        );
+                      }}
+                    />
+                    <input
+                      type="text"
+                      className={`option-input ${
+                        question.answer === "b" ? "correct-answer" : ""
+                      }`}
+                      defaultValue={question.b}
+                      onChange={(e) => {
+                        upDateQuestionsArray(question, "b", e.target.value);
+                      }}
+                    />
+                    <input
+                      type="radio"
+                      value="c"
+                      name={question.questionId}
+                      className="option-select"
+                      defaultChecked={question.answer === "c"}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
+
+                          "answer",
+                          e.target.value
+                        );
+                      }}
+                    />
+                    <input
+                      type="text"
+                      className={`option-input ${
+                        question.answer === "c" ? "correct-answer" : ""
+                      }`}
+                      defaultValue={question.c}
+                      onChange={(e) => {
+                        upDateQuestionsArray(question, "c", e.target.value);
+                      }}
+                    />
+                    <input
+                      type="radio"
+                      value="d"
+                      name={question.questionId}
+                      className="option-select"
+                      defaultChecked={question.answer === "d"}
+                      onChange={(e) => {
+                        upDateQuestionsArray(
+                          question,
+
+                          "answer",
+                          e.target.value
+                        );
+                      }}
+                    />
+                    <input
+                      type="text"
+                      className={`option-input ${
+                        question.answer === "d" ? "correct-answer" : ""
+                      }`}
+                      defaultValue={question.d}
+                      onChange={(e) => {
+                        upDateQuestionsArray(question, "d", e.target.value);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="options">
-                  <input
-                    type="radio"
-                    value="a"
-                    name={question.questionId}
-                    className="option-select"
-                    defaultChecked={question.answer === "a"}
-                    onChange={(e) => {
-                      upDateQuestionsArray(
-                        question,
+              );
+            })}
 
-                        "answer",
-                        e.target.value
-                      );
-                    }}
-                  />
-                  <input
-                    type="text"
-                    className={`option-input ${
-                      question.answer === "a" ? "correct-answer" : ""
-                    }`}
-                    defaultValue={question.a}
-                    onChange={(e) => {
-                      upDateQuestionsArray(question, "a", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    value="b"
-                    name={question.questionId}
-                    className="option-select"
-                    defaultChecked={question.answer === "b"}
-                    onChange={(e) => {
-                      upDateQuestionsArray(
-                        question,
-
-                        "answer",
-                        e.target.value
-                      );
-                    }}
-                  />
-                  <input
-                    type="text"
-                    className={`option-input ${
-                      question.answer === "b" ? "correct-answer" : ""
-                    }`}
-                    defaultValue={question.b}
-                    onChange={(e) => {
-                      upDateQuestionsArray(question, "b", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    value="c"
-                    name={question.questionId}
-                    className="option-select"
-                    defaultChecked={question.answer === "c"}
-                    onChange={(e) => {
-                      upDateQuestionsArray(
-                        question,
-
-                        "answer",
-                        e.target.value
-                      );
-                    }}
-                  />
-                  <input
-                    type="text"
-                    className={`option-input ${
-                      question.answer === "c" ? "correct-answer" : ""
-                    }`}
-                    defaultValue={question.c}
-                    onChange={(e) => {
-                      upDateQuestionsArray(question, "c", e.target.value);
-                    }}
-                  />
-                  <input
-                    type="radio"
-                    value="d"
-                    name={question.questionId}
-                    className="option-select"
-                    defaultChecked={question.answer === "d"}
-                    onChange={(e) => {
-                      upDateQuestionsArray(
-                        question,
-
-                        "answer",
-                        e.target.value
-                      );
-                    }}
-                  />
-                  <input
-                    type="text"
-                    className={`option-input ${
-                      question.answer === "d" ? "correct-answer" : ""
-                    }`}
-                    defaultValue={question.d}
-                    onChange={(e) => {
-                      upDateQuestionsArray(question, "d", e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+        {questions?.filter((question) => {
+          return (
+            question.question.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.a.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.b.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.c.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.d.toLocaleLowerCase().includes(searchKeyWord) ||
+            question.questionId.toLocaleLowerCase().includes(searchKeyWord)
+          );
+        }).length === 0 && (
+          <div className="no-questions-found"> No questions found</div>
+        )}
       </div>
     </div>
   );

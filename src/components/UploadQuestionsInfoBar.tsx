@@ -19,7 +19,7 @@ export const UploadQuestionsInfoBar = (props: {
       <ul className="upload-info-list">
         <li className="uploaded-info-success">
           {" "}
-          <b>{loadedBooks}</b> were uploaded{" "}
+          Loaded: <b>{loadedBooks}</b>{" "}
         </li>
         <li
           className="uploaded-info-fail"
@@ -27,7 +27,7 @@ export const UploadQuestionsInfoBar = (props: {
           onMouseLeave={() => setIsShown(false)}
         >
           {" "}
-          <b>{failedBooksNumber}</b> failed
+          Failed: <b>{failedBooksNumber}</b>
           {isShown && failedBooks.length > 0 && (
             <ul className="failed-books-list">
               {failedBooks.map((book) => {

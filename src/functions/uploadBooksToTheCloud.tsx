@@ -9,7 +9,6 @@ export const uploadBooksToTheCloud = (booksArray: Book[]) => {
   };
 
   booksArray.map(async (book) => {
-    console.log(checkForTheSameName(book));
     if ((await checkForTheSameName(book)) === false) {
       const bookData = {
         bookId: createARandomIdWithInitial("B", 7),
