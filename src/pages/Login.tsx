@@ -4,6 +4,7 @@ import "../scss/auth.scss";
 import { BtnSignInWithGoogle } from "../components/BtnSignInWithGoogle";
 import { useState } from "react";
 import { logInWithEmailAndPassword } from "../firebase/googleAuth";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,8 +12,18 @@ export const Login = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // console.log(email, password);
-    logInWithEmailAndPassword(email, password);
+    console.log(email, password);
+    logInWithEmailAndPassword(email, password).then((res) => {
+      if (res.status === 200) {
+        toast.success(res.message, { autoClose: 2000 });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        toast.error(res.message, { autoClose: 2000 });
+      }
+    });
   };
 
   return (

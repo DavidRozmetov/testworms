@@ -1,5 +1,4 @@
 export const checkPasswordStrength = (password: string): boolean => {
-  console.log(password);
   const MIN_LENGTH = 8;
 
   let count = 0;

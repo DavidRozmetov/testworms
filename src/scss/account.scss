@@ -2,7 +2,22 @@
 .account-page {
   width: 60vw;
   margin: auto;
-  form {
+  .div-form {
+    .email-div {
+      position: relative;
+      width: 90%;
+      .btn-change-email {
+        margin: auto;
+        margin-left: 0.5em;
+        cursor: pointer;
+        font-size: 0.9em;
+        background-color: $primary;
+        border: none;
+        color: $secondary;
+        border-radius: 0.2em;
+        padding: 0.5em;
+      }
+    }
     .header-button {
       background-color: transparent;
       width: 100%;
@@ -10,6 +25,7 @@
       border: none;
       h2 {
         color: $blue;
+        cursor: pointer;
       }
     }
     .checkbox-inputs {
@@ -36,50 +52,158 @@
       border-radius: 0.25rem;
     }
 
-    .btn-secondary {
-      color: $secondary;
-      font-size: large;
-      padding: 0.5em 3em;
-      background-color: transparent;
-      cursor: pointer;
-      border: 0;
-      width: 50%;
+    .security {
+      width: 80%;
 
-      height: 3em;
+      .input-line {
+        position: relative;
+        .security-input {
+          width: 100%;
+        }
+        .btn-eye {
+          color: $blue;
+          font-size: 1.6em;
+          position: absolute;
+          top: 0.2em;
+          right: 0.1em;
+          cursor: pointer;
+        }
+      }
 
-      position: absolute;
-      bottom: 25vh;
-      left: 25%;
+      .security-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .btn-send-reset-email {
+          margin: auto;
+          padding: 1em 3em;
+          cursor: pointer;
+
+          display: grid;
+          grid-template-columns: 1fr 9fr;
+          color: $secondary;
+          background-color: $primary;
+          border: none;
+          border-radius: 0.5em;
+        }
+
+        .break-or {
+          margin: 1em;
+        }
+        .btn-change-password {
+          width: 30%;
+          border-radius: 0.5em;
+          padding: 1em;
+          margin: auto;
+          border: none;
+          margin-top: 1em;
+          cursor: pointer;
+        }
+      }
     }
-    .btn-secondary:hover {
-      border: solid $secondary 1px;
-      border-radius: 0.3em;
-      font-weight: 600;
+    .account-div {
+      .btn-delete-account {
+        color: $secondary;
+        font-size: 1em;
+        padding: 0.5em 3em;
+        background-color: $light-blue;
+        cursor: pointer;
+        border: 0;
+        width: 50%;
+        height: 3em;
+        margin-left: 25%;
+      }
+      .btn-delete-account:hover {
+        border: solid $secondary 1px;
+        border-radius: 0.3em;
+        font-weight: 600;
+      }
+
+      .are-you-sure-container {
+        .are-you-sure-background {
+          background-color: rgba(0, 0, 0, 0.88);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 1000;
+        }
+
+        .are-you-sure-div {
+          position: absolute;
+          z-index: 1001;
+          background-color: white;
+          width: 40vw;
+          height: 30vh;
+          top: 25vh;
+          left: 30vw;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .are-you-sure-message {
+            width: 80%;
+            margin: auto;
+            color: $secondary;
+            font-size: 1.2em;
+            text-align: center;
+          }
+          .are-you-sure-buttons {
+            margin: auto;
+            width: 90%;
+            display: flex;
+            justify-content: space-evenly;
+            button {
+              font-size: 1em;
+              padding: 0.6em 2em;
+              border: none;
+              cursor: pointer;
+            }
+            .btn-delete-my-account {
+              background-color: $color-fail;
+              color: $white;
+            }
+            .btn-delete-my-account:hover {
+              background-color: red;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+    .div-personal-details {
+      width: 90%;
     }
     .btn-submit {
-      position: absolute;
-      bottom: 15vh;
-      left: 25%;
-
       display: block;
-      margin: 2rem auto;
       align-self: center;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem;
       border: none;
       border-radius: 0.25rem;
-      width: 50%;
-      background: $primary;
       color: $secondary;
-      cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 200;
       transition-property: all;
       transition-duration: 1s;
+      width: 30%;
+      margin-left: 30%;
+      margin-top: 1em;
+    }
+    .btn-disabled {
+      background-color: $white;
+      color: $border;
+      cursor: not-allowed;
+    }
 
-      &:hover {
-        font-weight: 700;
-        background-color: rgba($color: $primary, $alpha: 0.8);
-      }
+    .btn-enabled {
+      background-color: $primary;
+      cursor: pointer;
+    }
+    .btn-enabled :hover {
+      font-weight: 700;
+      background-color: rgba($color: $primary, $alpha: 0.9);
     }
   }
 }
@@ -88,7 +212,7 @@
     width: 90vw;
 
     margin-top: 5vh;
-    form {
+    .div-form {
       padding-left: 7vw;
     }
   }

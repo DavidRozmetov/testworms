@@ -8,6 +8,7 @@ import { checkPasswordStrength } from "../firebase/checkPasswordStrength";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { CreateAccountWithEmailAndPassword } from "../firebase/googleAuth";
+import { toast } from "react-toastify";
 
 export const SignUp = () => {
   const [user, setUser] = useState({});
@@ -20,14 +21,11 @@ export const SignUp = () => {
   });
 
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -35,49 +33,70 @@ export const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+
   const [isValid, setIsValid] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-  const debouncedValidateForm = () => {
-    validateForm();
-  };
 
   const validateForm = () => {
     let valid = true;
     const newErrors = { ...errors };
 
-    if (formData.firstName.trim() === "") {
+    if (firstName.trim() === "") {
       newErrors.firstName = "Name is required";
+      toast.error(newErrors.firstName, {
+        autoClose: 1000,
+      });
       valid = false;
     } else {
       newErrors.firstName = "";
     }
-    if (formData.lastName.trim() === "") {
+    if (lastName.trim() === "") {
       newErrors.lastName = "Last name is required";
+
+      toast.error(newErrors.lastName, {
+        autoClose: 1000,
+      });
       valid = false;
     } else {
       newErrors.lastName = "";
     }
-    if (formData.email.trim() === "") {
+    if (email.trim() === "") {
       newErrors.email = "Email is required";
+      toast.error(newErrors.email, {
+        autoClose: 1000,
+      });
       valid = false;
+    } else if (!email.trim().includes("@")) {
+      newErrors.email = "Email is required";
+      toast.error(newErrors.email, {
+        autoClose: 1000,
+      });
     } else {
       newErrors.email = "";
     }
-    if (formData.password.trim() === "") {
+    if (password.trim() === "") {
       newErrors.password = "Password is required";
+      toast.error(newErrors.password, {
+        autoClose: 1000,
+      });
       valid = false;
-    } else if (!checkPasswordStrength(formData.password)) {
+    } else if (!checkPasswordStrength(password)) {
       newErrors.password = "Password is not strong enough";
       valid = false;
     } else {
       newErrors.password = "";
     }
-    if (formData.confirmPassword.trim() === "") {
+    if (confirmPassword.trim() === "") {
       newErrors.confirmPassword = "Confirm password is required";
+      toast.error(newErrors.confirmPassword, {
+        autoClose: 1000,
+      });
       valid = false;
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (password !== confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
+      toast.error(newErrors.confirmPassword, {
+        autoClose: 1000,
+      });
       valid = false;
     } else {
       newErrors.confirmPassword = "";
@@ -89,19 +108,20 @@ export const SignUp = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("submit clicked");
-    debouncedValidateForm();
 
     if (isValid && agreedToTerms) {
-      console.log(formData);
       CreateAccountWithEmailAndPassword({
-        email: formData.email,
-        password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+      }).then((res) => {
+        if (res.status === 200) {
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
+        }
       });
-    } else {
-      console.log(errors);
     }
   };
 
@@ -137,8 +157,10 @@ export const SignUp = () => {
                   id="first-name"
                   className="input form-input half-width"
                   onChange={(event) => {
-                    setFormData({ ...formData, firstName: event.target.value });
-                    debouncedValidateForm();
+                    setFirstName(event.target.value);
+                    if (errors.firstName !== "") {
+                      setErrors({ ...errors, firstName: "" });
+                    }
                   }}
                 />
               </div>
@@ -155,8 +177,10 @@ export const SignUp = () => {
                   id="last-name"
                   className="input form-input half-width"
                   onChange={(event) => {
-                    setFormData({ ...formData, lastName: event.target.value });
-                    debouncedValidateForm();
+                    setLastName(event.target.value);
+                    if (errors.lastName !== "") {
+                      setErrors({ ...errors, lastName: "" });
+                    }
                   }}
                 />
               </div>
@@ -171,13 +195,10 @@ export const SignUp = () => {
                 id="form-email"
                 className="input form-input full-width"
                 onChange={(event) => {
-                  setFormData({ ...formData, email: event.target.value });
-                  console.log(formData);
-                  // validateForm();
-                  // debouncedValidateForm();
-                  // console.log(event.target.value);
-                  // setEmail(event.target.value);
-                  // console.log(email);
+                  setEmail(event.target.value);
+                  if (errors.email !== "") {
+                    setErrors({ ...errors, email: "" });
+                  }
                 }}
               />
             </div>
@@ -193,8 +214,10 @@ export const SignUp = () => {
                 id="form-password"
                 className="input form-input full-width"
                 onChange={(event) => {
-                  setFormData({ ...formData, password: event.target.value });
-                  debouncedValidateForm();
+                  setPassword(event.target.value);
+                  if (errors.password !== "") {
+                    setErrors({ ...errors, password: "" });
+                  }
                 }}
               />
             </div>
@@ -209,11 +232,10 @@ export const SignUp = () => {
                 id="form-confirm-password"
                 className="input form-input full-width"
                 onChange={(event) => {
-                  setFormData({
-                    ...formData,
-                    confirmPassword: event.target.value,
-                  });
-                  debouncedValidateForm();
+                  setConfirmPassword(event.target.value);
+                  if (errors.confirmPassword !== "") {
+                    setErrors({ ...errors, confirmPassword: "" });
+                  }
                 }}
               />
             </div>
@@ -235,8 +257,10 @@ export const SignUp = () => {
               </div>
             </div>
             <button
-              type="submit"
               className="btn full-width bg-main sign-up-button"
+              onClick={(e) => {
+                validateForm();
+              }}
             >
               Sign me up !
             </button>

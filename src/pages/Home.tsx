@@ -52,7 +52,9 @@ export const Home = () => {
     if (User.uid !== "") {
       readDocument("users", User.uid).then((res) => {
         userData = res.message;
-        if (userData.role !== null) {
+
+        console.log(res.message);
+        if (userData.role) {
           setUserRole(userData.role);
         }
       });
@@ -69,6 +71,7 @@ export const Home = () => {
       if (auth.currentUser !== null) {
         setUser(auth.currentUser);
         setEmail(auth.currentUser.email ? auth.currentUser.email : "");
+        console.log(auth.currentUser);
       }
     });
 
@@ -84,7 +87,7 @@ export const Home = () => {
     <div>
       {process.env.REACT_APP_APP_NAME}
       <div>{email}</div>
-      <div>{userName}</div>
+      <div>{userRole}</div>
       {!auth.currentUser?.emailVerified && <h4>please verify your email</h4>}
       <p>
         {userRole === "a" && (

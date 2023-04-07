@@ -56,7 +56,10 @@ export const readData = async (collectionName: string) => {
 export const readDocument = async (
   collectionName: string,
   fieldName: string
-) => {
+): Promise<{
+  status: string;
+  message: any;
+}> => {
   const docRef = doc(db, collectionName, fieldName);
   const docSnap = await getDoc(docRef);
 
@@ -90,7 +93,13 @@ export const updateData = async (
 };
 
 // await deleteData("users", "4ITM2qTan7g86oBy7u5D")
-export const deleteData = async (collectionName: string, document: string) => {
+export const deleteData = async (
+  collectionName: string,
+  document: string
+): Promise<{
+  status: number;
+  message: string;
+}> => {
   try {
     await deleteDoc(doc(db, collectionName, document));
     return {

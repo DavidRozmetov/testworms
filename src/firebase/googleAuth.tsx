@@ -15,36 +15,51 @@ import { auth, provider, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { createData, deleteData } from "./firebaseCRUD";
 import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
-export const signInwithGoogle = () => {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      // The signed-in user info.
-      window.localStorage.setItem("logged-in", "true");
-      const [user] = useAuthState(auth);
-      createData("users", {
-        firstName: user?.displayName,
-        accountType: "free",
-        isVerifiedTeacher: false,
-        role: "u",
-      });
-      window.location.reload();
-      // ...
-    })
-    .catch((error) => {
-      // // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // // The email of the user's account used.
-      // const email = error.customData.email;
-      // // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // // ...
-      // console.log(error);
+export const SignInwithGoogle = async (): Promise<{
+  status: number;
+  message: string;
+}> => {
+  try {
+    let status = 0;
+    let message = "";
+    const result = await signInWithPopup(auth, provider);
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken;
+    // The signed-in user info.
+    window.localStorage.setItem("logged-in", "true");
+    console.log(result);
+
+    const user = result.user;
+    const data = {
+      firstName: user?.displayName?.split(" ")[0],
+      lastName: user?.displayName?.split(" ")[1],
+      accountType: "free",
+      isVerifiedTeacher: false,
+      role: "u",
+    };
+    await setDoc(doc(db, "users", user.uid), data).then(() => {
+      status = 400;
+      message = "account has been created successfully";
     });
+
+    return {
+      status: status,
+      message: "account has been created successfully",
+    };
+  } catch (error: any) {
+    return {
+      status: 400,
+      message: error.message,
+    };
+  }
+};
+
+export const useAuth = () => {
+  const [user] = useAuthState(auth);
+  return user;
 };
 
 interface UserData {
@@ -53,11 +68,12 @@ interface UserData {
   email: string;
   password: string;
 }
-export const CreateAccountWithEmailAndPassword = (userData: UserData) => {
+export const CreateAccountWithEmailAndPassword = (
+  userData: UserData
+): Promise<{ status: number; message: string }> => {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, userData.email, userData.password)
+  return createUserWithEmailAndPassword(auth, userData.email, userData.password)
     .then(async (userCredential) => {
-      // Signed in
       window.localStorage.setItem("logged-in", "true");
       const user = userCredential.user;
       updateUserName(userData.firstName, userData.lastName);
@@ -70,17 +86,21 @@ export const CreateAccountWithEmailAndPassword = (userData: UserData) => {
       };
       await setDoc(doc(db, "users", userCredential.user.uid), data);
 
-      // setDoc("users", userCredential.user.uid, userDocument);
       sendEmailToVerify();
 
-      // alert("you are logged in");
-      // ...
+      return {
+        status: 200,
+        message: "Your account has been created successfully!",
+      };
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage);
-      // ..
+
+      return {
+        status: 400,
+        message: error.message,
+      };
     });
 };
 
@@ -102,21 +122,46 @@ export const updateUserName = (firstName: string, lastName: string) => {
   }
 };
 
-export const logInWithEmailAndPassword = (email: string, password: string) => {
+export const logInWithEmailAndPassword = async (
+  email: string,
+  password: string
+): Promise<{
+  status: number;
+  message: string;
+}> => {
   const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      window.localStorage.setItem("logged-in", "true");
-      alert("You have signed in");
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-    });
+  let status = 0;
+  let message = "";
+  try {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        window.localStorage.setItem("logged-in", "true");
+
+        status = 200;
+        message = "You have signed in";
+      })
+      .catch((error: any) => {
+        status = 400;
+
+        if (error.code === "auth/invalid-email") {
+          message = "Wrong Email or Password!";
+        } else {
+          message = "Something went wrong! Please try again!";
+        }
+      });
+
+    return {
+      status: status,
+      message: message,
+    };
+  } catch (error: any) {
+    return {
+      status: 400,
+      message: "Something went wrong! Please try again!",
+    };
+  }
 };
 
 export const sendEmailToVerify = () => {
@@ -133,12 +178,14 @@ export const sendResetPasswordEmail = (email: string) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
       // Password reset email sent!
-      alert("Password reset email sent to " + email + "!");
+      toast.info("Password reset email sent to " + email + "!");
       // ..
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+
+      toast.error(errorMessage);
       // ..
     });
 };
@@ -147,14 +194,14 @@ export const logOut = (message?: any) => {
     .signOut()
     .then(() => {
       window.localStorage.setItem("logged-in", "false");
-      alert("you have logged out");
+      toast.success("you have logged out");
       window.location.reload();
       if (message) {
-        alert(message);
+        toast.success(message);
       }
     })
     .catch((e) => {
-      alert(e.message);
+      toast.error(e.message);
     });
 };
 
@@ -165,13 +212,21 @@ export const DeleteUser = () => {
   if (!checkIfTheLoginIsMoreThanTwoDays(user)) {
     deleteUser(user)
       .then(() => {
-        deleteData("users", user);
-        window.localStorage.setItem("logged-in", "false");
-        alert("your account has been deleted");
-        window.location.reload();
+        deleteData("users", user.uid).then((res) => {
+          if (res.status === 200) {
+            toast.success("Your account has been deleted");
+          } else {
+            toast.error(
+              "Something went wrong! Please Log out and log in again"
+            );
+          }
+
+          window.localStorage.setItem("logged-in", "false");
+          window.location.reload();
+        });
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.message);
         // An error ocurred
         // ...
       });

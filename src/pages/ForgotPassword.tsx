@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendResetPasswordEmail } from "../firebase/googleAuth";
 import "../scss/forgotPassword.scss";
+import { toast } from "react-toastify";
 export const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   return (
@@ -10,6 +11,9 @@ export const ForgotPassword: React.FC = () => {
         onSubmit={(e) => {
           e.preventDefault();
           sendResetPasswordEmail(email);
+          toast.success("Reset Password Link Has Been Sent To " + email, {
+            autoClose: 2000,
+          });
         }}
       >
         <label htmlFor="email">Email</label>
