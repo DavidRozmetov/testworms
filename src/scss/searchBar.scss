@@ -1,0 +1,87 @@
+@import "../scss/theme.scss";
+
+.search-bar-container {
+  width: 93vw;
+  height: 10vh;
+  margin: auto;
+  display: inline-grid;
+  gap: 1em;
+  grid-template-columns: 1fr 4fr 1fr;
+  background-color: $white;
+
+  .books-length {
+    color: $blue;
+    text-align: center;
+  }
+  .btn-upload-books {
+    height: 3em;
+    margin: auto;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background-color: $primary;
+    border: none;
+    border-radius: 0.4em;
+    color: $secondary;
+    cursor: pointer;
+    * {
+      margin: auto;
+    }
+  }
+  .search-bar {
+    display: flex;
+    gap: 0.2em;
+    .search-bar-input {
+      width: 65%;
+      height: 2em;
+      margin: auto;
+      border-radius: 0.2em;
+      padding: 0.5em;
+      border: solid 1px $border;
+    }
+
+    .filter-stages {
+      margin: auto;
+      .search-select-stage {
+        height: 3em;
+      }
+    }
+
+    .sort-by {
+      display: flex;
+      justify-content: center;
+      .select-sort-by {
+        text-align: center;
+        margin: auto;
+        height: 3em;
+      }
+    }
+  }
+  .search-group {
+    width: 3em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    * {
+      height: 3em;
+      margin: auto;
+    }
+  }
+  .grouped-view {
+    color: $blue;
+  }
+  .ungrouped-view {
+    color: $border;
+  }
+  .view-type {
+    width: 3em;
+
+    display: flex;
+    justify-content: center;
+    * {
+      height: 5em;
+      margin: auto;
+    }
+  }
+}

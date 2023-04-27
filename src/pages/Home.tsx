@@ -1,10 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { readDocument } from "../firebase/firebaseCRUD";
 import { auth } from "../firebase/firebase";
 import { toast } from "react-toastify";
+import { MyQuizzesComponent } from "../components/MyQuizzesComponent";
+import "../scss/home.scss";
+import { RxCross1 } from "react-icons/rx";
+import { sendEmailToVerify } from "../firebase/googleAuth";
 
 export const Home = () => {
   interface User {
@@ -25,14 +29,6 @@ export const Home = () => {
     role: string;
   }
 
-  // const user: User = {
-  //   metadata: {
-  //     lastSignInTime: '2022-01-01',
-  //   },
-  // };
-
-  // console.log(user.metadata.lastSignInTime); // 2022-01-01
-
   const [userName, setUserName] = useState("Nothing So far");
   const [email, setEmail] = useState("Nothing So far");
   const [userRole, setUserRole] = useState("");
@@ -47,13 +43,13 @@ export const Home = () => {
   const location = useLocation();
   const statemessage = location.state;
   const effectRan = useRef(false);
+  const [toggelVerifyEmail, setToggelVerifyEmail] = useState(true);
 
   useEffect(() => {
     if (User.uid !== "") {
       readDocument("users", User.uid).then((res) => {
         userData = res.message;
 
-        console.log(res.message);
         if (userData.role) {
           setUserRole(userData.role);
         }
@@ -71,7 +67,6 @@ export const Home = () => {
       if (auth.currentUser !== null) {
         setUser(auth.currentUser);
         setEmail(auth.currentUser.email ? auth.currentUser.email : "");
-        console.log(auth.currentUser);
       }
     });
 
@@ -85,17 +80,54 @@ export const Home = () => {
   };
   return (
     <div>
-      {process.env.REACT_APP_APP_NAME}
-      <div>{email}</div>
-      <div>{userRole}</div>
-      {!auth.currentUser?.emailVerified && <h4>please verify your email</h4>}
-      <p>
+      <h3 className="greeting message">Good morning, {userName}</h3>
+      {!auth.currentUser?.emailVerified && toggelVerifyEmail && (
+        <div className="verify-email-container">
+          <button
+            className="verify-email-close-button"
+            onClick={() => setToggelVerifyEmail(false)}
+          >
+            <RxCross1 />
+          </button>
+          <span className="verify-email-text">Please verify your email!</span>{" "}
+          <button
+            className="verify-email-button"
+            onClick={() => {
+              if (auth.currentUser) {
+                sendEmailToVerify().then((res) => {
+                  if (res.status === 200) {
+                    toast.success(
+                      "Verification link sent to " +
+                        auth.currentUser?.email +
+                        ". If you can't see it, please check the spam folder",
+                      {
+                        autoClose: 2000,
+                      }
+                    );
+                  } else {
+                    toast.error(
+                      "Something went wrong! Please try again later!",
+                      {
+                        autoClose: 2000,
+                      }
+                    );
+                  }
+                });
+              }
+            }}
+          >
+            resend email
+          </button>{" "}
+        </div>
+      )}
+      <div>
         {userRole === "a" && (
           <button className="btn-primary" onClick={redirectToUploadPage}>
-            Upload Question Banks
+            Upload Books
           </button>
         )}
-      </p>
+        {userRole !== "a" && <MyQuizzesComponent />}
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { readBooksData } from "../firebase/firebaseCRUD";
 import { Book, Thumbnail } from "../interfaces/modifyBooksInterface";
 import { ModifyBookCard } from "../components/ModifyBookCard";
 import "../scss/modifyBooks.scss";
+import "../scss/searchBar.scss";
 import { getStorage } from "firebase/storage";
 import { getApp } from "firebase/app";
 import { loadAllImages } from "../firebase/storage";

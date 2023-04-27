@@ -77,7 +77,6 @@ export const UserAvatar = (props: { email: string }) => {
         email.split("").map((letter) => {
           setHash((hash) => [...hash, letter.charCodeAt(0) % 15]);
         });
-        console.log(hash);
       }
     });
   }, [props]);

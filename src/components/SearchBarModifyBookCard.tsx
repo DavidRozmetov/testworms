@@ -1,100 +1,102 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { BiUpload } from "react-icons/bi";
-import { MdCalendarViewMonth } from "react-icons/md";
-import {
-  FaLayerGroup,
-  FaSortAmountDownAlt,
-  FaSortNumericDown,
-  FaSortNumericDownAlt,
-} from "react-icons/fa";
-import {
-  AiOutlineSortAscending,
-  AiOutlineSortDescending,
-} from "react-icons/ai";
+
+import { FaLayerGroup } from "react-icons/fa";
+import { BooksWithUID } from "../interfaces/Interfaces";
+
 export const SearchBarModifyBookCard = (props: {
-  booksObject:
-    | {
-        bookUID: string;
-        bookId: string;
-        bookName: string;
-        stage: string | undefined;
-      }[]
-    | undefined;
-  setBooksObject: Dispatch<
-    SetStateAction<
-      | {
-          bookUID: string;
-          bookId: string;
-          bookName: string;
-          stage: string | undefined;
-        }[]
-      | undefined
-    >
-  >;
-  setSearchResults: Dispatch<
-    SetStateAction<
-      | {
-          bookUID: string;
-          bookId: string;
-          bookName: string;
-          stage: string | undefined;
-        }[]
-      | undefined
-    >
-  >;
-  searchResults:
-    | {
-        bookUID: string;
-        bookId: string;
-        bookName: string;
-        stage: string | undefined;
-      }[]
-    | undefined;
+  booksObject: BooksWithUID[] | undefined;
+  setBooksObject: Dispatch<SetStateAction<BooksWithUID[] | undefined>>;
+  setSearchResults: Dispatch<SetStateAction<BooksWithUID[] | undefined>>;
+  searchResults: BooksWithUID[] | undefined;
   isGrouped: boolean;
   setIsGrouped: Dispatch<SetStateAction<boolean>>;
 }) => {
   const booksObject = props.booksObject;
-  const setBooksObject = props.setBooksObject;
-  const [searchWord, setSearchWord] = useState("");
+
   const searchResults = props.searchResults;
   const setSearchResults = props.setSearchResults;
   const navigate = useNavigate();
   const isGrouped = props.isGrouped;
   const setIsGrouped = props.setIsGrouped;
+  // const [params, setParams] = useState<any>({});
+  let params: any = {};
+  const [searchParams] = useSearchParams();
+  const pathname = window.location.pathname;
+  const filterNames = (obj: BooksWithUID[] | undefined, keyword: string) => {
+    if (keyword !== "") {
+      return obj?.filter((book) => {
+        return (
+          book.bookName
+            .toLocaleLowerCase()
+            .includes(keyword.toLocaleLowerCase()) ||
+          book.bookId.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
+        );
+      });
+    } else {
+      return obj;
+    }
+  };
+
+  const filterStages = (obj: BooksWithUID[] | undefined, stage: string) => {
+    if (stage === "") {
+      return obj;
+    } else if (stage === "none") {
+      return obj?.filter((book) => {
+        return book.stage === undefined;
+      });
+    } else if (stage !== "all") {
+      return obj?.filter((book) => {
+        return book.stage && book.stage === stage;
+      });
+    } else {
+      return obj;
+    }
+  };
+
+  useEffect(() => {
+    const searchKey = searchParams.get("search");
+    const stageKey = searchParams.get("stage");
+
+    const nameFilter = filterNames(booksObject, searchKey || "");
+
+    setSearchResults(filterStages(nameFilter, stageKey || ""));
+  }, [searchParams]);
+
+  const passSearchParam = (key: string, val: string) => {
+    const searchKey = searchParams.get("search");
+    const stageKey = searchParams.get("stage");
+
+    if (searchKey) {
+      params["search"] = searchKey;
+    }
+    if (stageKey && stageKey !== "") {
+      params["stage"] = stageKey;
+    }
+
+    params[key] = val;
+
+    navigate({
+      search: `?${createSearchParams(params)}`,
+    });
+  };
+
   return (
     <div className="search-bar-container">
-      <h2 className="books-length">{booksObject?.length} books</h2>
+      <h2 className="books-length">{searchResults?.length} books</h2>
       <div className="search-bar">
         <input
           className="search-bar-input"
           type="text"
           placeholder="search for book names or book Id"
+          defaultValue={searchParams.get("search") || ""}
           onChange={(e) => {
-            setSearchWord(e.target.value);
-
-            if (e.target.value !== "") {
-              setSearchResults(
-                booksObject?.filter((book) => {
-                  return book.bookName.includes(e.target.value);
-                })
-              );
-              setSearchResults(
-                booksObject?.filter((book) => {
-                  return (
-                    book.bookName
-                      .toLocaleLowerCase()
-                      .includes(e.target.value.toLocaleLowerCase()) ||
-                    book.bookId
-                      .toLocaleLowerCase()
-                      .includes(e.target.value.toLocaleLowerCase())
-                  );
-                })
-              );
-            } else {
-              setSearchResults(booksObject);
-              setSearchResults(booksObject);
-            }
+            passSearchParam("search", e.target.value);
           }}
         />
         <div className="filter-stages">
@@ -102,25 +104,9 @@ export const SearchBarModifyBookCard = (props: {
             className="search-select-stage"
             name="search-select-stage"
             id="search-select-stage"
-            defaultValue=" "
+            defaultValue={searchParams.get("stage") || " "}
             onChange={(e) => {
-              if (e.target.value === "none") {
-                setSearchResults(
-                  booksObject?.filter((book) => {
-                    return book.stage === undefined;
-                  })
-                );
-              } else if (e.target.value !== "all") {
-                setSearchResults(
-                  booksObject?.filter((book) => {
-                    return book.stage && book.stage === e.target.value;
-                  })
-                );
-              } else {
-                setSearchResults(booksObject);
-              }
-
-              // console.log(e.target.value);
+              passSearchParam("stage", e.target.value);
             }}
           >
             <option value="all">All</option>
@@ -187,26 +173,30 @@ export const SearchBarModifyBookCard = (props: {
             <option value="old-new">Oldest First</option>
           </select>
         </div>
-        <div
-          className={`search-group ${
-            isGrouped ? "grouped-view" : "ungrouped-view"
-          }`}
+        {pathname !== "/create-quiz" && (
+          <div
+            className={`search-group ${
+              isGrouped ? "grouped-view" : "ungrouped-view"
+            }`}
+            onClick={() => {
+              setIsGrouped(!isGrouped);
+            }}
+          >
+            <FaLayerGroup />
+          </div>
+        )}
+      </div>
+      {pathname !== "/create-quiz" && (
+        <button
+          className="btn-upload-books"
           onClick={() => {
-            setIsGrouped(!isGrouped);
+            navigate("/upload-questions");
           }}
         >
-          <FaLayerGroup />
-        </div>
-      </div>
-      <button
-        className="btn-upload-books"
-        onClick={() => {
-          navigate("/upload-questions");
-        }}
-      >
-        <BiUpload />
-        <span> Upload Books</span>
-      </button>
+          <BiUpload />
+          <span> Upload Books</span>
+        </button>
+      )}
     </div>
   );
 };

@@ -21,6 +21,7 @@ import { ProtectedRoutes, AuthRoutes } from "./components/ProtectedRoutes";
 import { UploadQuestions } from "./pages/UploadQuestions";
 import { ModifyBooks } from "./pages/ModifyBooks";
 import { ModifyQuestions } from "./pages/ModifyQuestions";
+import { CreateQuiz } from "./pages/CreateQuiz";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -48,6 +49,7 @@ function App() {
             path="modify-questions/*"
             element={<ModifyQuestions />}
           ></Route>
+          <Route path="create-quiz" element={<CreateQuiz />}></Route>
         </Route>
 
         <Route element={<AuthRoutes />}>

@@ -164,12 +164,27 @@ export const logInWithEmailAndPassword = async (
   }
 };
 
-export const sendEmailToVerify = () => {
-  const auth: any = getAuth();
-  sendEmailVerification(auth.currentUser).then(() => {
-    // Email verification sent!
-    alert("email verification sent! to " + auth.currentUser.email);
-    // ...
+export const sendEmailToVerify = (): Promise<{
+  status: number;
+  message: string;
+}> => {
+  return new Promise((resolve, reject) => {
+    const auth: any = getAuth();
+    let status = 0;
+    let message = "";
+    try {
+      sendEmailVerification(auth.currentUser).then(() => {
+        // Email verification sent!
+        // ...
+        status = 200;
+        message = "email verification sent! to " + auth.currentUser.email;
+        resolve({ status, message });
+      });
+    } catch (error) {
+      status = 400;
+      message = "something went wrong! Please try again";
+      reject({ status, message });
+    }
   });
 };
 

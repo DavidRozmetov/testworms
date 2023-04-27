@@ -1,0 +1,392 @@
+@import "./theme.scss";
+.create-quiz-container {
+  width: 100vw;
+  height: 100vh;
+
+  .create-quiz-header {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr 3fr 1fr;
+    background-color: $light-blue;
+    margin-left: -1em;
+    padding-right: 1em;
+    height: 3.8em;
+    .create-quiz-name {
+      color: $blue;
+      margin: auto;
+    }
+    .quiz-id {
+      text-align: center;
+      color: $border;
+    }
+    .back-button {
+      margin: auto;
+      height: 2.5em;
+      width: 10em;
+      border: none;
+      background-color: transparent;
+
+      cursor: pointer;
+      border-radius: 0.5em;
+      font-size: 1em;
+    }
+    .back-button:hover {
+      background-color: $primary;
+    }
+  }
+
+  .container {
+    width: 80vw;
+    font-size: 1.4em;
+    margin: auto;
+
+    margin-top: 0;
+
+    .container-header {
+      display: grid;
+      grid-template-columns: 5fr 2fr;
+      .container-header-text {
+        font-size: 1.2em;
+        color: $secondary;
+      }
+      .header-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+        .btn-next,
+        .btn-previous {
+          border: none;
+          font-size: 1em;
+          padding: 0.4em 2em;
+          border-radius: 0.4em;
+          max-height: 2em;
+          margin: auto;
+        }
+        .btn-next-enabled,
+        .btn-previous:hover {
+          background-color: $primary;
+          cursor: pointer;
+        }
+
+        .btn-next-disabled,
+        .btn-previous {
+          background-color: transparent;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .container-disabled {
+    opacity: 0.15;
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+  .create-quiz-name-div {
+    margin-top: 0.25em;
+    width: 80.5vw;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 2fr 5fr 1fr;
+
+    height: 60vh;
+    * {
+      margin: auto;
+    }
+    label {
+      height: 1.4em;
+      font-size: 1.3em;
+    }
+    input {
+      height: 2em;
+      width: 70%;
+      border: none;
+      border-bottom: solid 1px $border;
+      font-size: 1em;
+      padding-left: 0.5em;
+    }
+    input:focus {
+      outline: none;
+    }
+    .btn-next {
+      border: none;
+      font-size: 1em;
+      padding: 0.4em 2em;
+      border-radius: 0.4em;
+    }
+    .btn-next-enabled {
+      background-color: $primary;
+      cursor: pointer;
+    }
+
+    .btn-next-disabled {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+  }
+
+  .choose-books-container {
+    display: block;
+
+    .search-bar-container-create-quiz {
+      width: 100%;
+      height: 3em;
+      margin-bottom: 1em;
+      border-bottom: solid 1px $border;
+      margin-top: 0;
+
+      .search-bar-container {
+        height: 3em;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        gap: 1em;
+        .books-length {
+          font-size: 1em;
+        }
+        * {
+          margin: auto;
+        }
+
+        .search-bar {
+          width: 100%;
+        }
+      }
+    }
+
+    .books-list {
+      .book-list-header,
+      .book-list-column {
+        display: grid;
+        grid-template-columns: 1.8fr 4.8fr 0.8fr;
+      }
+      .book-list-header {
+        font-weight: bold;
+        color: $secondary;
+        background-color: gainsboro;
+      }
+      .book-list-columns {
+        height: 64vh;
+        overflow-y: scroll;
+        .no-books-found {
+          color: $secondary;
+          margin: auto;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+        .book-list-column:nth-child(2n) {
+          background-color: $light-blue;
+          color: $secondary;
+        }
+      }
+      .book-list-select {
+        text-align: center;
+        .book-select-input {
+          width: 1.4em;
+          height: 1.4em;
+          cursor: pointer;
+        }
+      }
+
+      .book-list-stage {
+        text-align: center;
+      }
+    }
+  }
+
+  .adjust-questions-container {
+    height: 90vh;
+
+    .adjust-questions-body {
+      margin-top: 1em;
+      .div-number-of-questions {
+        width: 80vw;
+        margin: auto;
+        .slidecontainer {
+          display: grid;
+          grid-template-columns: 2fr 5fr;
+
+          .div-slider {
+            display: grid;
+            grid-template-columns: 9fr 1fr;
+
+            .slider-number {
+              margin: auto;
+            }
+          }
+        }
+      }
+
+      .div-complete-random-questions {
+        display: grid;
+        grid-template-columns: 1fr 20fr;
+        height: 3em;
+        .label-randomise-completely {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: $secondary;
+        }
+        .checkbox-randomise-completely {
+          width: 1.5em;
+          height: 1.5em;
+          margin: auto;
+        }
+      }
+
+      .div-question-types {
+        width: 50%;
+        .question-type-slide-group {
+          display: grid;
+          grid-template-columns: 3fr 5fr 1fr;
+          margin-bottom: 0.4em;
+
+          label {
+          }
+          input {
+          }
+          span {
+          }
+        }
+      }
+    }
+  }
+
+  .see-random-questions-container {
+    .question-cards {
+      height: 80vh;
+      overflow-y: scroll;
+      padding-top: 1em;
+
+      .question-card {
+        width: 80%;
+        margin: auto;
+        padding: 0.25em;
+        background-color: white;
+        margin-bottom: 0.25em;
+        position: relative;
+        .header-buttons {
+          position: absolute;
+          top: 0.2em;
+          right: 3em;
+          z-index: 2;
+          width: 3em;
+          display: flex;
+          justify-content: space-between;
+
+          button {
+            width: 2em;
+            height: 2em;
+            border-radius: 100%;
+            background-color: $primary;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            * {
+              align-self: center;
+              font-size: 1.5em;
+              color: $secondary;
+            }
+            .label-reset-question-info {
+              position: absolute;
+              width: 7em;
+              font-size: 1.2em;
+              top: -1.2em;
+              left: 0;
+              background-color: $white;
+              color: $secondary;
+              border: solid 0.2px $border;
+              padding: 0.2em;
+            }
+            .label-question-info {
+              position: absolute;
+              width: 7em;
+              font-size: 1.2em;
+              top: -1.2em;
+              left: 0;
+              background-color: $white;
+              color: $secondary;
+              border: solid 0.2px $border;
+              padding: 0.2em;
+            }
+          }
+          .btn-question-info {
+            * {
+              font-size: 1.25em;
+            }
+          }
+        }
+        input {
+          padding: 0.25em;
+          margin: 0.15em;
+          border: none;
+          border-bottom: solid 1px $border;
+          border-radius: 0;
+          font-size: 0.9em;
+        }
+        input:focus {
+          outline: none;
+        }
+        .main-question {
+          display: grid;
+          grid-template-columns: 1fr 9fr;
+          font-size: 1em;
+          input {
+            width: 90%;
+          }
+        }
+        .options {
+          display: grid;
+          grid-template-columns: 1fr 9fr;
+          font-size: 1em;
+
+          input {
+            width: 50%;
+          }
+          .option-select {
+            cursor: pointer;
+            font-size: 2em;
+          }
+          .correct-answer {
+            color: $secondary;
+            font-weight: 600;
+          }
+        }
+      }
+      .main-question {
+        display: grid;
+        grid-template-columns: 1fr 9fr;
+        font-size: 1em;
+        input {
+          width: 90%;
+        }
+      }
+      .options {
+        display: grid;
+        grid-template-columns: 1fr 9fr;
+        font-size: 1em;
+
+        input {
+          width: 50%;
+        }
+        .option-select {
+          cursor: pointer;
+          font-size: 2em;
+        }
+        .correct-answer {
+          color: $secondary;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .btn-complete {
+    background-color: red;
+  }
+}

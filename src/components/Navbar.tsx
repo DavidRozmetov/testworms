@@ -33,6 +33,7 @@ export const Navbar = () => {
     "upload-questions",
     "modify-books",
     "modify-questions",
+    "create-quiz",
   ];
 
   return (

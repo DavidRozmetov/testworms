@@ -6,3 +6,10 @@ export const createRandomNumberId = (lengthOfPassword: number) => {
   }
   return randomNumberId;
 };
+
+export const createARandomIdWithInitial = (
+  initial: string,
+  idLength: number
+) => {
+  return initial + createRandomNumberId(idLength);
+};

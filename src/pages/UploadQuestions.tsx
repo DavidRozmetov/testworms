@@ -8,7 +8,10 @@ import { UploadQuestionsInfoBar } from "../components/UploadQuestionsInfoBar";
 import { uploadBooksToTheCloud } from "../functions/uploadBooksToTheCloud";
 
 import { toast } from "react-toastify";
-import { createRandomNumberId } from "../functions/createRandomNumberId";
+import {
+  createARandomIdWithInitial,
+  createRandomNumberId,
+} from "../functions/createRandomNumberId";
 import { checkForTheSameName, createData } from "../firebase/firebaseCRUD";
 import { Book, Question } from "../interfaces/Interfaces";
 import { AiTwotoneEdit } from "react-icons/ai";
@@ -155,10 +158,6 @@ export const UploadQuestions = () => {
         </div>
       );
     }
-  };
-
-  const createARandomIdWithInitial = (initial: string, idLength: number) => {
-    return initial + createRandomNumberId(idLength);
   };
 
   return (
