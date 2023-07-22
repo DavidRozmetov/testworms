@@ -325,19 +325,6 @@ export const AdjustQuizQuestions = (props: {
             </div>
           );
         })}
-
-      <button
-        className="btn-complete"
-        onClick={() => {
-          if (!bundleBooks && !bundleTypes) {
-            let uploadObject = {};
-
-            console.log(quizQuestions);
-          }
-        }}
-      >
-        Complete
-      </button>
     </div>
   );
 };

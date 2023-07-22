@@ -6,8 +6,8 @@ import { MdAutorenew } from "react-icons/md";
 import { BsInfoLg } from "react-icons/bs";
 import { toast } from "react-toastify";
 export const AdjustQuizQuestion = (props: {
-  randomQuestions: string[];
-  randomIndex: string;
+  randomQuestions: string[] | null;
+  randomIndex: string | null;
   i: number;
   cloudQuestions: QuestionWithId[];
   setRandomQuestions: Dispatch<SetStateAction<string[]>>;
@@ -18,13 +18,13 @@ export const AdjustQuizQuestion = (props: {
     characters: number;
     dialogue: number;
   };
-  togglePreferences: boolean;
-  bundleBook: boolean;
-  bundleType: boolean;
+  togglePreferences: boolean | null;
+  bundleBook: boolean | null;
+  bundleType: boolean | null;
   bookId: string;
-  typeId: string;
-  questionOrder: QuestionOrder;
-  setQuestionOrder: Dispatch<SetStateAction<QuestionOrder>>;
+  typeId: string | null;
+  questionOrder: QuestionOrder | null;
+  setQuestionOrder: Dispatch<SetStateAction<QuestionOrder>> | null;
 }) => {
   const cloudQuestions = props.cloudQuestions;
   const randomIndex = props.randomIndex;
@@ -78,7 +78,8 @@ export const AdjustQuizQuestion = (props: {
         }
 
         if (
-          randomQuestions.length === cloudQuestions.length ||
+          (randomQuestions &&
+            randomQuestions.length === cloudQuestions.length) ||
           (togglePreferences && questionLength === cloudQuestions.length / 5)
         ) {
           toast.warning("All the questions are in use");
@@ -90,7 +91,7 @@ export const AdjustQuizQuestion = (props: {
             randomItemType = cloudQuestions[randomIndex]?.type;
             randomBookId = cloudQuestions[randomIndex]?.bookId;
           } while (
-            randomQuestions.includes(randomItem) ||
+            (randomQuestions && randomQuestions.includes(randomItem)) ||
             randomItem === "" ||
             togglePreferences ||
             (bundleTypes &&
@@ -136,11 +137,12 @@ export const AdjustQuizQuestion = (props: {
     });
     setQusetion(currentQuestion);
     if (currentQuestion !== undefined) {
-      setQuestionOrder((prevOrder: QuestionOrder) => {
-        const nextOrder = { ...prevOrder };
-        nextOrder[i] = currentQuestion;
-        return nextOrder;
-      });
+      setQuestionOrder &&
+        setQuestionOrder((prevOrder: QuestionOrder) => {
+          const nextOrder = { ...prevOrder };
+          nextOrder[i] = currentQuestion;
+          return nextOrder;
+        });
     }
   }, [auth, randomQuestions]);
   return (
@@ -159,13 +161,14 @@ export const AdjustQuizQuestion = (props: {
               const newIndex: string = res.message;
               let tempRandomArray: string[] = [];
 
-              randomQuestions.map((randQuest) => {
-                if (randQuest !== randomQuestions[i]) {
-                  tempRandomArray.push(randQuest);
-                } else {
-                  tempRandomArray.push(newIndex);
-                }
-              });
+              randomQuestions &&
+                randomQuestions.map((randQuest) => {
+                  if (randQuest !== randomQuestions[i]) {
+                    tempRandomArray.push(randQuest);
+                  } else {
+                    tempRandomArray.push(newIndex);
+                  }
+                });
 
               setRandomQuestions((prevQuestions) => tempRandomArray);
             });

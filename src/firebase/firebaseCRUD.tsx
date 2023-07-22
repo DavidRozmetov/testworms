@@ -52,6 +52,33 @@ export const readData = async (collectionName: string) => {
   }
 };
 
+// readData("quizzes","author" ,uid)
+export const readDataFromUser = async (
+  collectionName: string,
+  uidKey: string,
+  uid: string
+) => {
+  const dataCollection: { [key: string]: any } = {};
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(db, collectionName), where(uidKey, "==", uid))
+    );
+    querySnapshot.forEach((doc) => {
+      dataCollection[doc.id] = doc.data();
+    });
+
+    return {
+      status: 200,
+      message: dataCollection,
+    };
+  } catch (e) {
+    return {
+      status: 400,
+      message: "Something went wrong! !" + e,
+    };
+  }
+};
+
 //readDocument("users", auth.currentUser)
 export const readDocument = async (
   collectionName: string,

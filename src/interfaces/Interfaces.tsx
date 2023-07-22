@@ -72,3 +72,20 @@ export interface QuizQuestionWithBookAndType extends QuizQuestionWithBook {
 export interface QuestionOrder {
   [questionIndex: number]: Question;
 }
+
+export interface QuizQuestion {
+  author: string;
+  dateCreated: string;
+  lastUpdated: string;
+  questionIndex: string;
+  quizId: string;
+  quizQuestionId: string;
+  sourceQuestionId: string;
+  type: string;
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+  answer: string;
+  bookId: string;
+}

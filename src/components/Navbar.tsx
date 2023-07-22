@@ -34,6 +34,7 @@ export const Navbar = () => {
     "modify-books",
     "modify-questions",
     "create-quiz",
+    "my-quizzes",
   ];
 
   return (

@@ -651,7 +651,7 @@ export const CreateQuiz = () => {
                   createData("quizzes", {
                     quizId: quizId,
                     quizName: quizName,
-                    nimberOfQuestions: slideNumberOfQuestions,
+                    numberOfQuestions: slideNumberOfQuestions,
                     author: auth.currentUser?.uid,
                     dateCreated: Date().toLocaleString(),
                     lastUpdated: Date().toLocaleString(),

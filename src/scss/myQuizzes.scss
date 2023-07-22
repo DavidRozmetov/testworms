@@ -1,0 +1,32 @@
+@import "../scss/theme.scss";
+
+.my-quizzes-component {
+  width: 90vw;
+  height: 90vh;
+  .magic-button {
+    padding: 0.8em;
+    width: 15em;
+    color: $blue;
+    background-color: transparent;
+    border: solid 1px $blue;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 1em;
+  }
+  .magic-button:hover {
+    background-color: $light-blue;
+  }
+  .div-my-quizzes {
+    margin-top: 5em;
+    margin-left: 2em;
+    h2 {
+      width: 100%;
+    }
+    .my-quizzes-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      gap: 1em;
+    }
+  }
+}
